@@ -14,14 +14,12 @@ class CreateCommentablesTable extends Migration
     public function up()
     {
         $this->schema()->create('commentables', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('comment_id')->unsigned();
             $table->integer('commentable_id');
             $table->string('commentable_type');
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
-            $table->index(['comment_id', 'commentable_id', 'commentable_type']);
-            $table->primary(['comment_id', 'commentable_id', 'commentable_type']);
+            $table->stamps();
+            $table->actions();
         });
     }
 

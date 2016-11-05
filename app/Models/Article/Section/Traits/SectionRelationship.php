@@ -9,7 +9,7 @@ trait SectionRelationship
     }
 
     public function type() {
-        return $this->belongsTo(config('models.sectionType.namespace'), 'type_id');
+        return $this->belongsTo(config('models.section_type.namespace'), 'type_id');
     }
 
     public function content()

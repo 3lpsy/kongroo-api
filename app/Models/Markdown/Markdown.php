@@ -10,5 +10,5 @@ class Markdown extends Model
      * Table Name
      * @var string
      */
-    protected $table = "markdowns";
+    protected $model = "markdown";
 }

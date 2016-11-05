@@ -19,9 +19,10 @@ class CreateCommentsTable extends Migration
             $table->smallInteger('section_id')->nullable()->unsigned();
             $table->smallInteger('author_id')->unsigned();
             $table->slug();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
+
+
         });
     }
 

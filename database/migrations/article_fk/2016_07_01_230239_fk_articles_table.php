@@ -1,0 +1,43 @@
+<?php
+
+use App\Services\Illuminate\Database\Schema\Blueprint\Blueprint;
+use App\Services\Illuminate\Database\Migrations\Migration;
+
+class FkArticlesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        $this->schema()->table('articles', function (Blueprint $table) {
+
+            $table->fk('author_id', 'users');
+
+            $table->fkAction('published');
+
+            $table->fkActions();
+
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        $this->schema()->table('articles', function (Blueprint $table) {
+
+            $table->dropFk('author_id');
+
+            $table->dropAction('published');
+
+            $table->dropActions();
+
+        });
+    }
+}

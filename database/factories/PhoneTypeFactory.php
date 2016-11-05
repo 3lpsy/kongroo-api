@@ -1,19 +1,18 @@
 <?php
 
 
-$factory->define(config('models.phoneType.class'), function (Faker\Generator $faker) {
+$factory->define(config('models.phone_type.namespace'), function (Faker\Generator $faker) {
     return [
         'name' => 'cell',
         'display_name' => "Cell Phone",
-        'slug' => slugify('cell-phone'),
+        'slug' => str_slug('cell-phone'),
     ];
 });
 
-$factory->defineAs(config('models.phoneType.class'), 'cell', function (Faker\Generator $faker) {
+$factory->defineAs(config('models.phone_type.namespace'), 'cell', function (Faker\Generator $faker) {
     return [
         'name' => 'cell',
         'display_name' => "Cell Phone",
-        'slug' => slugify('cell-phone'),
+        'slug' => str_slug('cell-phone'),
     ];
 });
-

@@ -1,9 +1,9 @@
 <?php
 
-$factory->define(config('models.series.class'), function (Faker\Generator $faker) {
+$factory->define(config('models.series.namespace'), function (Faker\Generator $faker) {
     return [
-        'name' => $name = snake_case($faker->word),
-        'display_name' => $name,
+        'title' => $name = snake_case($faker->word),
+        'sub_title' => $name,
         'slug' => str_slug($name)
     ];
 });

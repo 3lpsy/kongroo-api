@@ -21,9 +21,9 @@ class CreateVideosTable extends Migration
             $table->string('original_filename');
             $table->string('location');
             $table->slug();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
+
         });
     }
 

@@ -4,19 +4,20 @@ namespace App\Models\Model\Traits;
 
 trait ModelRelationship
 {
-    public function status() {
-        return $this->belongsTo(config("models.status.namespace"), "status_id");
-    }
 
-    public function createdBy() {
+    public function creator() {
         return $this->belongsTo(config("models.user.namespace"), "created_by_id");
     }
 
-    public function updatedBy() {
+    public function updater() {
         return $this->belongsTo(config("models.user.namespace"), "updated_by_id");
     }
 
-    public function deletedBy() {
+    public function restorer() {
+        return $this->belongsTo(config("models.user.namespace"), "restored_by_id");
+    }
+
+    public function destroyer() {
         return $this->belongsTo(config("models.user.namespace"), "deleted_by_id");
     }
 }

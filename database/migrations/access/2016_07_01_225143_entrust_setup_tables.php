@@ -14,65 +14,56 @@ class EntrustSetupTables extends Migration
         // Create table for storing roles
         $this->schema()->create('roles', function (Blueprint $table) {
             $table->smallIncrements('id');
-            $table->string('name')->unique();
-            $table->string('display_name')->nullable();
-            $table->string('description', 64)->nullable();
+            $table->nomen();
             $table->slug();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
         });
 
         $this->schema()->create('role_dependency', function (Blueprint $table) {
-            $table->smallInteger('role_id')->unsigned();
-            $table->smallInteger('dependency_id')->unsigned();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
-            $table->primary(['role_id', 'dependency_id']);
+            $table->smallIncrements('id');
+            $table->fkInteger('role_id', 'small');
+            $table->fkInteger('dependency_id', 'small');
+            $table->stamps();
+            $table->actions();
         });
 
         // Create table for associating roles to users (Many-to-Many)
         $this->schema()->create('role_user', function (Blueprint $table) {
-            $table->smallInteger('user_id')->unsigned();
-            $table->smallInteger('role_id')->unsigned();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
-            $table->primary(['user_id', 'role_id']);
+            $table->smallIncrements('id');
+            $table->fkInteger('user_id', 'small');
+            $table->fkInteger('role_id', 'small');
+            $table->stamps();
+            $table->actions();
         });
 
         // Create table for storing permissions
         $this->schema()->create('permissions', function (Blueprint $table) {
             $table->smallIncrements('id');
-            $table->string('name')->unique();
-            $table->string('display_name')->nullable();
-            $table->string('description', 64)->nullable();
+            $table->nomen();
+            $table->fkInteger('type_id', 'small');
             $table->slug();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
         });
 
         // Create table for associating permissions to roles (Many-to-Many)
         $this->schema()->create('permission_role', function (Blueprint $table) {
-            $table->smallInteger('permission_id')->unsigned();
-            $table->smallInteger('role_id')->unsigned();
+            $table->smallIncrements('id');
+            $table->fkInteger('permission_id', 'small');
+            $table->fkInteger('role_id', 'small');
             $table->slug();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
-            $table->primary(['permission_id', 'role_id']);
+            $table->stamps();
+            $table->actions();
         });
 
         // Create table for associating permissions to roles (Many-to-Many)
         $this->schema()->create('permission_dependency', function (Blueprint $table) {
-            $table->smallInteger('permission_id')->unsigned();
-            $table->smallInteger('dependency_id')->unsigned();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
-            $table->primary(['permission_id', 'dependency_id']);
+            $table->smallIncrements('id');
+            $table->fkInteger('permission_id', 'small');
+            $table->fkInteger('dependency_id', 'small');
+            $table->stamps();
+            $table->actions();
         });
     }
 

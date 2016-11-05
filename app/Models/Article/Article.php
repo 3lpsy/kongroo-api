@@ -9,22 +9,20 @@ use App\Models\Article\Traits\ArticleUserRelationship;
 use App\Models\Article\Traits\ArticleScope;
 use App\Models\Traits\Taggable\Taggable;
 use App\Models\Traits\Categorical\Categorical;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model {
 
-	use ArticleRelationship,
+    use ArticleRelationship,
         ArticleUserRelationship,
         ArticleScope,
         Taggable,
-        Categorical,
-        SoftDeletes;
+        Categorical;
 
-	/**
-	 * Table Name
-	 * @var string
-	 */
-    protected $table = 'articles';
+    /**
+     * Table Name
+     * @var string
+     */
+    protected $model = 'article';
 
     public $dates = ['published_at'];
 

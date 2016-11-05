@@ -23,9 +23,9 @@ class CreateCountriesTable extends Migration
             $table->string("local_abbreviation", 8)->nullable();
             $table->string("calling_code", 4);
             $table->string("calling_prefix", 4);
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
+
 
         });
     }

@@ -13,14 +13,12 @@ class CreateTaggablesTable extends Migration
     public function up()
     {
         $this->schema()->create('taggables', function (Blueprint $table) {
-            $table->smallInteger('tag_id')->unsigned();
+            $table->increments('id');
+            $table->fkInteger('tag_id', 'small');
             $table->integer('taggable_id');
             $table->string('taggable_type');
-            $table->slug();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
-            $table->primary(['tag_id', 'taggable_id', 'taggable_type']);
+            $table->stamps();
+            $table->actions();
         });
     }
 

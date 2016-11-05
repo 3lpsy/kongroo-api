@@ -13,62 +13,34 @@ class ArticlesSeeder extends Seeder
     {
         $user = User::find(2);
 
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        \DB::table(config('models.tag.table'))->truncate();
-        \DB::table(config('models.series.table'))->truncate();
-        \DB::table("articles")->truncate();
-        \DB::table("article_sections")->truncate();
-        \DB::table("content_markdown")->truncate();
-        \DB::table("article_section_types")->truncate();
-        \DB::table("markdowns")->truncate();
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        $tags = factory(config('models.tag.class'), 20)->create()->each(function($tag) use ($user){
-            $tag->changeStatus("active")
-                ->changeCreatedBy($user)
-                ->changeUpdatedBy($user);
-        });
+        $tags = factory(config('models.tag.namespace'), 20)->create();
 
-        $series = factory(config('models.series.class'), 3)->create()->each(function($series) use ($tags, $user){
-            $series->changeStatus("active")
-                ->changeCreatedBy($user)
-                ->changeUpdatedBy($user);
+        $series = factory(config('models.series.namespace'), 3)->create()->each(function($series) use ($tags, $user){
             $series->tag($tags->random());
         });
 
 
-        $markdownType = factory(config('models.sectionType.class'))->create([
+        $markdownType = factory(config('models.section_type.namespace'))->create([
             'name' => 'markdown',
             'display_name' => 'Markdown'
         ]);
 
 
-        $videoType = factory(config('models.sectionType.class'))->create([
+        $videoType = factory(config('models.section_type.namespace'))->create([
             'name' => 'video',
             'display_name' => 'Video'
         ]);
 
         $types = collect([$markdownType, $videoType]);
 
-        $types->each(function($type) use ($user) {
-            $type->changeStatus("active")
-                ->changeCreatedBy($user)
-                ->changeUpdatedBy($user);
-        });
-
-        $articles = factory(config('models.article.class'), 'pubished-plain', 60)->create(['author_id' => $user->id])->each(function($article) use ($user, $types, $tags) {
+        $articles = factory(config('models.article.namespace'), 'pubished-plain', 60)->create(['author_id' => $user->id])->each(function($article) use ($user, $types, $tags) {
             $article->authoredBy($user)
                 ->publishedBy($user)
-                ->changeStatus("active")
-                ->changeCreatedBy($user)
-                ->changeUpdatedBy($user)
                 ->tag($tags->random());
 
-           $sections = factory(config('models.section.class'), 3)->create(['article_id' => $article->id, 'type_id' => $types->random()->id])->each(function($section) use ($user) {
-                $section->changeStatus("active")
-                ->changeCreatedBy($user)
-                ->changeUpdatedBy($user);
-           });
+           $sections = factory(config('models.section.namespace'), 3)
+                ->create(['article_id' => $article->id, 'type_id' => $types->random()->id]);
         });
     }
 }

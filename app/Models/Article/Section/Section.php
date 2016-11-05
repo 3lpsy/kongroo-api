@@ -7,7 +7,7 @@ use App\Models\Article\Section\Traits\SectionRelationship;
 
 class Section extends Model
 {
-    protected $table = 'article_sections';
+    protected $model = 'section';
 
     use SectionRelationship;
 }

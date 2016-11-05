@@ -20,12 +20,28 @@ class Blueprint extends IlluminateBlueprint
     {
         $this->string("name")->nullable();
         $this->string("display_name")->nullable();
-        $this->text('description')->nullable();
+        $this->description();
     }
-    
+
+    public function description()
+    {
+        $this->string("description", 255)->nullable();
+    }
+
+    public function title()
+    {
+        $this->string("title", 64);
+    }
+
+    public function subTitle()
+    {
+        $this->string("sub_title", 128)->nullable();
+    }
+
+
     public function slug()
     {
-        $this->string('slug', 32)->nullable();
+        $this->string('slug', 255)->nullable();
     }
 
     public function stripId($key)
@@ -38,12 +54,12 @@ class Blueprint extends IlluminateBlueprint
         return "{$table}_{$key}";
     }
 
-    public function tableFromFk($key) 
+    public function tableFromFk($key)
     {
         return Str::plural($this->stripId($key));
     }
 
-    public function fkFromTable($table) 
+    public function fkFromTable($table)
     {
         return $this->appendId(Str::singular($table));
     }

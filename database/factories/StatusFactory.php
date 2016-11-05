@@ -1,7 +1,7 @@
 <?php
 
 // random
-$factory->define(config('models.status.class'), function (Faker\Generator $faker) {
+$factory->define(config('models.status.namespace'), function (Faker\Generator $faker) {
     return [
         'name' => $name = $faker->word,
         'display_name' => ucfirst($name),
@@ -10,7 +10,7 @@ $factory->define(config('models.status.class'), function (Faker\Generator $faker
 });
 
 //default
-$factory->defineAs(config('models.status.class'), 'default', function (Faker\Generator $faker) {
+$factory->defineAs(config('models.status.namespace'), 'default', function (Faker\Generator $faker) {
     return [
         'name' => "active",
         'display_name' => "Active",
@@ -19,7 +19,7 @@ $factory->defineAs(config('models.status.class'), 'default', function (Faker\Gen
 });
 
 //specific
-$factory->defineAs(config('models.status.class'), 'active', function (Faker\Generator $faker) {
+$factory->defineAs(config('models.status.namespace'), 'active', function (Faker\Generator $faker) {
     return [
         'name' => "active",
         'display_name' => "Active",
@@ -27,7 +27,7 @@ $factory->defineAs(config('models.status.class'), 'active', function (Faker\Gene
     ];
 });
 
-$factory->defineAs(config('models.status.class'), 'private', function (Faker\Generator $faker) {
+$factory->defineAs(config('models.status.namespace'), 'private', function (Faker\Generator $faker) {
     return [
         'name' => "private",
         'display_name' => "private",
@@ -35,7 +35,7 @@ $factory->defineAs(config('models.status.class'), 'private', function (Faker\Gen
     ];
 });
 
-$factory->defineAs(config('models.status.class'), 'disabled', function (Faker\Generator $faker) {
+$factory->defineAs(config('models.status.namespace'), 'disabled', function (Faker\Generator $faker) {
     return [
         'name' => "disabled",
         'display_name' => "Disabled",
@@ -43,7 +43,7 @@ $factory->defineAs(config('models.status.class'), 'disabled', function (Faker\Ge
     ];
 });
 
-$factory->defineAs(config('models.status.class'), 'banned', function (Faker\Generator $faker) {
+$factory->defineAs(config('models.status.namespace'), 'banned', function (Faker\Generator $faker) {
     return [
         'name' => "banned",
         'display_name' => "Banned",
@@ -51,7 +51,7 @@ $factory->defineAs(config('models.status.class'), 'banned', function (Faker\Gene
     ];
 });
 
-$factory->defineAs(config('models.status.class'), 'junk', function (Faker\Generator $faker) {
+$factory->defineAs(config('models.status.namespace'), 'junk', function (Faker\Generator $faker) {
     return [
         'name' => "junk",
         'display_name' => "Junk",
@@ -59,7 +59,7 @@ $factory->defineAs(config('models.status.class'), 'junk', function (Faker\Genera
     ];
 });
 
-$factory->defineAs(config('models.status.class'), 'pending', function (Faker\Generator $faker) {
+$factory->defineAs(config('models.status.namespace'), 'pending', function (Faker\Generator $faker) {
     return [
         'name' => "pending",
         'display_name' => "pending",

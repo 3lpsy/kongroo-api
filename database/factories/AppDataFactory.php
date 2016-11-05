@@ -1,6 +1,6 @@
 <?php
 
-$factory->define(config('models.appData.class'), function (Faker\Generator $faker) {
+$factory->define(config('models.app_data.namespace'), function (Faker\Generator $faker) {
     return [
         'name' => "acme",
         "display_name" => "Acme",

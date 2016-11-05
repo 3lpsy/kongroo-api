@@ -10,11 +10,13 @@ class CreatePasswordResetsTable extends Migration
     public function up()
     {
         $this->schema()->create($this->table, function (Blueprint $table) {
-            $table->smallInteger('user_id')->unsigned()->unique();
+            $table->fkInteger('user_id', 'small');
             $table->string('token')->unique()->index();
-            $table->smallInteger('status_id')->unsigned()->nullable();
-            $table->timestamp('expires_at');
-            $table->trackableTimestamps();
+            $table->fkInteger('status_id', 'small');
+            $table->stamp('expires_at');
+            $table->stamps();
+            $table->actions();
+
             $table->primary(["token"]);
         });
     }

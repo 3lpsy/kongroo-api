@@ -3,25 +3,28 @@
 namespace App\Models\Access\User;
 
 use App\Models\Model\Model;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use App\Models\Access\User\Traits\Relationship\UserRelationship;
-use App\Models\Access\User\Traits\Relationship\UserRoleRelationship;
-use App\Models\Access\User\Traits\Relationship\UserAccess;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Passport\HasApiTokens;
-class User extends Model implements AuthenticatableContract
+
+use App\Models\Access\User\Traits\UserAccess;
+use App\Models\Access\User\Traits\UserRelationship;
+use App\Models\Access\User\Traits\UserRoleRelationship;
+use App\Models\Access\User\Traits\UserPhoneRelationship;
+use App\Models\Access\User\Traits\UserUserSettingsRelationship;
+use App\Models\Access\User\Traits\UserQueryBy;
+
+class User extends Model
 {
-    use Authenticatable, UserRelationship, UserRoleRelationship,
-        UserAccess, SoftDeletes, HasApiTokens;
+    use UserRelationship,
+        UserAccess,
+        UserRoleRelationship,
+        UserUserSettingsRelationship,
+        UserPhoneRelationship,
+        UserQueryBy;
+        
     /**
      * Table Name
      * @var string
      */
-    protected $table = "users";
+    protected $model = "user";
 
     /**
      * The attributes that are mass assignable.
@@ -41,21 +44,6 @@ class User extends Model implements AuthenticatableContract
         'password', 'remember_token',
     ];
 
-    public static function byEmail($email)
-    {
-        return static::where('email', $email)->firstOrFail();
-    }
-
-    public function savePhone($phone)
-    {
-        $this->phone()->save($phone);
-        return $this->save();
-    }
-
-    public function saveSettings($settings)
-    {
-        return $this->update(['settings_id' => $settings->id]);
-    }
 
 
 

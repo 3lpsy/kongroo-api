@@ -7,7 +7,7 @@ trait BlueprintUserAction
     public function actions()
     {
         collect(config("blueprint.track.actions"))->each(function ($action) {
-            $this->actionInteger($action);
+            $this->action($action);
         });
     }
 
@@ -23,9 +23,9 @@ trait BlueprintUserAction
         $this->fk($this->getActionColumn($action), 'users', "id");
     }
 
-    public function actionInteger($action)
+    public function action($action)
     {
-        $this->fkInteger($this->getActionColumn($action));
+        $this->fkInteger($this->getActionColumn($action), config("blueprint.user_size"));
     }
 
     public function getActionColumn($action)

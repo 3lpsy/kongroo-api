@@ -13,13 +13,12 @@ class CreateCategoricalsTable extends Migration
     public function up()
     {
         $this->schema()->create('categoricals', function (Blueprint $table) {
-            $table->integer('category_id')->unsigned();
-            $table->integer('categorical_id');
+            $table->increments('id');
+            $table->fkInteger('category_id')->unsigned();
+            $table->fkInteger('categorical_id');
             $table->string('categorical_type');
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
-            $table->primary(['category_id', 'categorical_id', 'categorical_type']);
+            $table->stamps();
+            $table->actions();
         });
     }
 

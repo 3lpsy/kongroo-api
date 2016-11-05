@@ -1,10 +1,10 @@
 <?php
 
-$factory->define(config('models.contentMarkdown.class'), function (Faker\Generator $faker) {
+$factory->define(config('models.content_markdown.namespace'), function (Faker\Generator $faker) {
     return [
         'provider' => 'local',
         'markdown_id' => function() {
-            return factory(config("models.markdown.class"))->create()->id;
+            return factory(config("models.markdown.namespace"))->create()->id;
         }
     ];
 });

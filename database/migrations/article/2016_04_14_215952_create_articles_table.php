@@ -14,16 +14,17 @@ class CreateArticlesTable extends Migration
     {
         $this->schema()->create('articles', function (Blueprint $table) {
             $table->smallIncrements('id');
-            $table->string('title', 64);
-            $table->string('sub_title', 64)->nullable();
-            $table->text('description')->nullable();
+            $table->nomen();
+            $table->title();
+            $table->subTitle();
             $table->integer('views')->default(0);
             $table->slug();
-            $table->smallInteger('author_id')->unsigned();
-            $table->status();
-            $table->trackableTimestamp("published");
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->fkInteger('author_id', 'small');
+            $table->stamps();
+            $table->stamp("published_at");
+            $table->action("published");
+
+            $table->actions();
         });
     }
 

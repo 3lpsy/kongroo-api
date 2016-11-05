@@ -13,13 +13,12 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         $this->schema()->create('categories', function (Blueprint $table) {
-            $table->smallIncrements('id');
-            $table->string('name', 64);
-            $table->string('display_name', 64);
+            $table->increments('id');
+            $table->nomen();
             $table->slug();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
+
         });
     }
 

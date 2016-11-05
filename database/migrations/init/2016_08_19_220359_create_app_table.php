@@ -20,9 +20,9 @@ class CreateAppTable extends Migration
             $table->string("twitter_username", 64);
             $table->string("github_username", 64);
             $table->string("medium_username", 64);
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
+
         });
     }
 

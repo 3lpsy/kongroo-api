@@ -13,13 +13,12 @@ class CreateViewsTable extends Migration
     public function up()
     {
         $this->schema()->create('views', function (Blueprint $table) {
-            $table->smallInteger('user_id')->unsigned();
-            $table->smallInteger('article_id')->unsigned();
+            $table->increments('id');
+            $table->fkInteger('user_id', 'small');
+            $table->fkInteger('article_id', 'small');
             $table->string('ip', 64)->nullable();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
-            $table->primary(['user_id', 'article_id']);
+            $table->stamps();
+            $table->actions();
         });
     }
 

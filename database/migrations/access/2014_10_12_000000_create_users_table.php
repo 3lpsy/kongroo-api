@@ -15,14 +15,12 @@ class CreateUsersTable extends Migration
             $table->string('first_name', 32);
             $table->string('last_name', 32);
             $table->string('middle_name', 32)->nullabe();
-            $table->smallInteger('settings_id')->unsigned()->nullable();
+            $table->fkInteger('settings_id', 'small');
             $table->string('email', 64)->unique();
             $table->slug();
             $table->rememberToken();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
-
+            $table->stamps();
+            $table->actions();
         });
     }
 

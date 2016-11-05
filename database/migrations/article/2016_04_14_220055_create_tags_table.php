@@ -14,12 +14,12 @@ class CreateTagsTable extends Migration
     {
         $this->schema()->create('tags', function (Blueprint $table) {
             $table->smallIncrements('id');
-            $table->string('name', 32);
-            $table->string('display_name', 32);
+            $table->nomen();
             $table->slug();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+
+            $table->stamps();
+            $table->actions();
+
         });
     }
 

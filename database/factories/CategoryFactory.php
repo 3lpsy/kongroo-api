@@ -1,8 +1,8 @@
 <?php
 
-$factory->define(config('models.category.class'), function (Faker\Generator $faker) {
+$factory->define(config('models.category.namespace'), function (Faker\Generator $faker) {
     return [
         'name' => $name = $faker->word,
-        'slug' => slugify($name)
+        'slug' => str_slug($name)
     ];
 });

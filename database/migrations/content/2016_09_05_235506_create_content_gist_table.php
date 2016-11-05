@@ -12,14 +12,14 @@ class CreateContentGistTable extends Migration
      */
     public function up()
     {
-        $this->schema()->create('content_gists', function (Blueprint $table) {
+        $this->schema()->create('content_gist', function (Blueprint $table) {
             $table->smallIncrements('id');
             $table->string("provider")->default('github');
             $table->string("gist_id")->nullable();
             $table->string("gist_src")->nullable();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
+
         });
     }
 

@@ -10,10 +10,4 @@ abstract class Content extends Model
     {
         return $this->morphMany(config('models.section.class'), 'content', 'contentable_type', 'contentable_id');
     }
-
-    public function transformer($name)
-    {
-        $transformer = $this->transformers["api"];
-        return new $transformer;
-    }
 }

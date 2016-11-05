@@ -5,10 +5,14 @@ namespace App\Services\Illuminate\Database\Schema\Blueprint\Traits;
 trait BlueprintForeignExtension
 {
 
-    public function fkInteger($column) {
-        $this->integer($column)->unsigned()->nullable();
+    public function fkInteger($column, $size = null) {
+        if (! $size) {
+            return $this->integer($column)->unsigned()->nullable();
+        }
+        return $this->{$size . "Integer"}($column)->unsigned()->nullable();
+
     }
-    
+
     public function fk($localKey, $on = null, $foreignKey = null, $update = "CASCADE", $delete = "SET NULL",  $name = false)
     {
         $on = $on ?: $this->tableFromFk($localKey);
@@ -22,11 +26,11 @@ trait BlueprintForeignExtension
                 ->onDelete($delete);
     }
 
-    protected function getForeignIndexForKey($key) 
+    protected function getForeignIndexForKey($key)
     {
         $standardFkIndex = $this->standardForeignIndex($key);
 
-        return strlen($standardFkIndex) >= 32 ? $standardFkIndex : $this->hashedForeignIndex($key);
+        return strlen($standardFkIndex) <= 32 ? $standardFkIndex : $this->hashedForeignIndex($key);
     }
 
     protected function standardForeignIndex($key)
@@ -39,7 +43,7 @@ trait BlueprintForeignExtension
         return md5("fk_" . $this->standardForeignIndex($key));
     }
 
-    public function dropFk($key) 
+    public function dropFk($key)
     {
         $this->dropForeign($this->getForeignIndexForKey($key));
     }

@@ -5,13 +5,28 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Console\Commands\Migrations\MigrateCommand;
 use App\Services\Illuminate\Database\Migrations\Migrator;
-use Illuminate\Database\MigrationServiceProvider as IlluminateMigrationServiceProvider;
+
+use App\Services\Illuminate\Database\Migrations\MigrationCreator;
 use App\Services\Illuminate\Database\Migrations\DatabaseMigrationRepository;
+use Illuminate\Database\MigrationServiceProvider as IlluminateMigrationServiceProvider;
 
 class MigrationServiceProvider extends IlluminateMigrationServiceProvider
 {
 
     protected $defer = true;
+
+
+    /**
+     * Register the migration creator.
+     *
+     * @return void
+     */
+    protected function registerCreator()
+    {
+        $this->app->singleton('migration.creator', function ($app) {
+            return new MigrationCreator($app['files']);
+        });
+    }
 
     /**
      * Register the migration repository service.
@@ -52,4 +67,5 @@ class MigrationServiceProvider extends IlluminateMigrationServiceProvider
             return new MigrateCommand($app['migrator']);
         });
     }
+
 }

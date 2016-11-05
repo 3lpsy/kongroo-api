@@ -1,4 +1,5 @@
 <?php
+use App\Providers\AuthServiceProvider;
 use App\Providers\MigrationCreatorServiceProvider;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -78,8 +79,12 @@ $app->singleton(
 | totally optional, so you are not required to uncomment this line.
 |
 */
+$app->configure('models');
+
+$app->configure('blueprint');
 
 $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\MigrationCreatorServiceProvider::class);
 
 $app->register(App\Providers\MigrationServiceProvider::class);

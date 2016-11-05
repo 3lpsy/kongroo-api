@@ -14,14 +14,13 @@ class CreateSeriesTable extends Migration
     {
         $this->schema()->create('series', function (Blueprint $table) {
             $table->smallIncrements('id');
-            $table->string('name', 64);
-            $table->string('display_name', 64);
-            $table->string('sub_title', 64)->nullable();
-            $table->text('description')->nullable();
+            $table->title();
+            $table->subTitle();
+            $table->description();
             $table->slug();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
+
         });
     }
 

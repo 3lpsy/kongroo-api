@@ -19,9 +19,9 @@ class CreateUserSettingsTables extends Migration
             $table->tinyInteger('phone_authentication')->nullable();
             $table->tinyInteger('two_factor_authentication')->nullable();
             $table->slug();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
+
 
         });
     }

@@ -17,9 +17,9 @@ class CreateContentImageTable extends Migration
             $table->string("provider")->default("local");
             $table->string("image_id")->nullable();
             $table->string("image_src")->nullable();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
+
         });
     }
 

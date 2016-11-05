@@ -17,9 +17,9 @@ class CreateContentMarkdownTable extends Migration
             $table->string("provider")->default("local");
             $table->string("markdown_id")->nullable();
             $table->string("markdown_src")->nullable();;
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
+
         });
     }
 

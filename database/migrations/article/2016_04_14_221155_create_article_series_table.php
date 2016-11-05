@@ -13,15 +13,15 @@ class CreateArticleSeriesTable extends Migration
     public function up()
     {
         $this->schema()->create('article_series', function (Blueprint $table) {
-            $table->smallIncrements('id');
-            $table->smallInteger('article_id')->unsigned();
-            $table->smallInteger('series_id')->unsigned();
+            $table->increments('id');
+            $table->fkInteger('article_id', 'small');
+            $table->fkInteger('series_id', 'small');
             $table->smallInteger('sort')->unsigned()->default(1);
             $table->tinyInteger('supplementary')->unsigned()->default(0);
             $table->slug();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
+
         });
     }
 

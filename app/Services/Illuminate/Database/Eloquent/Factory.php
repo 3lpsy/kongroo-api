@@ -7,17 +7,15 @@ use App\Services\Illuminate\Database\Eloquent\FactoryBuilder;
 
 class Factory extends EloquentFactory {
 
-    /**
-     * Create a builder for the given model.
-     *
-     * @param  string  $class
-     * @param  string  $name
-     * @return \Illuminate\Database\Eloquent\FactoryBuilder
- */
-
-    public function of($class, $name = 'default')
-    {
-        return new FactoryBuilder($class, $name, $this->definitions, $this->states, $this->faker);
-    }
-
+ /**
+  * Create a builder for the given model.
+  *
+  * @param  string  $class
+  * @param  string  $name
+  * @return \Illuminate\Database\Eloquent\FactoryBuilder
+  */
+ public function of($class, $name = 'default')
+ {
+     return new FactoryBuilder($class, $name, $this->definitions, $this->faker);
+ }
 }

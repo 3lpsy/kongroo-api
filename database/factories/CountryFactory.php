@@ -1,7 +1,7 @@
 <?php
 
 // random
-$factory->define(config('models.country.class'), function (Faker\Generator $faker) {
+$factory->define(config('models.country.namespace'), function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\en_US\Address($faker));
     return [
         'name' => $name = $faker->country,
@@ -12,7 +12,7 @@ $factory->define(config('models.country.class'), function (Faker\Generator $fake
 });
 
 //default
-$factory->defineAs(config('models.country.class'), 'default', function (Faker\Generator $faker) {
+$factory->defineAs(config('models.country.namespace'), 'default', function (Faker\Generator $faker) {
     return [
         'name' => "United States of America",
         'official_name' => "United States of America",
@@ -27,7 +27,7 @@ $factory->defineAs(config('models.country.class'), 'default', function (Faker\Ge
 });
 
 //specific
-$factory->defineAs(config('models.country.class'), 'america', function (Faker\Generator $faker) {
+$factory->defineAs(config('models.country.namespace'), 'america', function (Faker\Generator $faker) {
     return [
         'name' => "United States of America",
         'official_name' => "United States of America",
@@ -41,7 +41,7 @@ $factory->defineAs(config('models.country.class'), 'america', function (Faker\Ge
     ];
 });
 
-$factory->defineAs(config('models.country.class'), 'canada', function (Faker\Generator $faker) {
+$factory->defineAs(config('models.country.namespace'), 'canada', function (Faker\Generator $faker) {
     return [
         'name' => "Canada",
         'official_name' => "Canada",
@@ -55,7 +55,7 @@ $factory->defineAs(config('models.country.class'), 'canada', function (Faker\Gen
     ];
 });
 
-$factory->defineAs(config('models.country.class'), 'mexico', function (Faker\Generator $faker) {
+$factory->defineAs(config('models.country.namespace'), 'mexico', function (Faker\Generator $faker) {
     return [
         'name' => "Mexico",
         'official_name' => "United Mexican States",

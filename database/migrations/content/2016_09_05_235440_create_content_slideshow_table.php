@@ -16,10 +16,10 @@ class CreateContentSlideshowTable extends Migration
             $table->smallIncrements('id');
             $table->string("provider")->default("local");
             $table->string("slideshow_id")->nullable();
-            $table->string("slideshow_src")->nullable();;;
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->string("slideshow_src")->nullable();
+            $table->stamps();
+            $table->actions();
+
         });
     }
 

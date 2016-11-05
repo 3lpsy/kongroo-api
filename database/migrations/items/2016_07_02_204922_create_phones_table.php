@@ -13,16 +13,15 @@ class CreatePhonesTable extends Migration
     public function up()
     {
         $this->schema()->create('phones', function (Blueprint $table) {
-
             $table->smallIncrements('id');
             $table->smallInteger("user_id")->unsigned()->nullable();
             $table->string("number", 16);
             $table->string("extension", 8)->nullable()->default(null);
             $table->smallInteger("country_id")->unsigned()->nullable();
             $table->smallInteger("type_id")->unsigned()->nullable();
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->stamps();
+            $table->actions();
+
 
         });
     }

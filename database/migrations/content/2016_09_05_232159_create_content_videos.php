@@ -16,12 +16,12 @@ class CreateContentVideos extends Migration
         $this->schema()->create('content_video', function (Blueprint $table) {
             $table->smallIncrements('id');
             $table->string("provider")->default("local");
-            $table->string("video_id")->nullable();
-            $table->string("video_src")->nullable();
-            $table->string("mime");
-            $table->status();
-            $table->trackableTimestamps();
-            $table->restorableSoftDeletes();
+            $table->string("video_id");
+            $table->string("video_src", 255)->nullable();
+            $table->string("mime")->nullable();
+            $table->stamps();
+            $table->actions();
+
         });
     }
 

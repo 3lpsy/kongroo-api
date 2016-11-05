@@ -3,8 +3,8 @@
 namespace App\Models\Access\Permission;
 
 use App\Models\Model\Model;
-use App\Models\Access\Permission\Traits\Relationship\PermissionRelationship;
-use App\Models\Access\Permission\Traits\Relationship\PermissionRoleRelationship;
+use App\Models\Access\Permission\Traits\PermissionRelationship;
+use App\Models\Access\Permission\Traits\PermissionRoleRelationship;
 
 class Permission extends Model
 {
@@ -13,5 +13,5 @@ class Permission extends Model
      * Table Name
      * @var string
      */
-    protected $table = "permissions";
+    protected $model = "permission";
 }

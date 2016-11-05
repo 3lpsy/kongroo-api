@@ -7,38 +7,27 @@ use App\Models\Status\Status;
 trait ModelRelationshipHelpers
 {
 
-     public function statusIs($status) {
-         return $this->status->name == $status;
-     }
+        public function updateCreatedBy($user)
+        {
+            $this->created_by_id = $user->id;
+            $this->save();
+        }
 
-     public function changeStatus($statusName) {
-         $this->status_id = Status::byName($statusName)->id;
-         $this->save();
-         return $this;
-     }
+        public function updateUpdatedBy($user)
+        {
+            $this->updated_by_id = $user->id;
+            $this->save();
+        }
 
-     public function changeUpdatedBy($userOrId) {
-         $this->changeActionUser($userOrId, 'updated_by_id');
-         return $this;
-     }
+        public function updateDeletedBy($user)
+        {
+            $this->deleted_by_id = $user->id;
+            $this->save();
+        }
 
-     public function changeCreatedBy($userOrId) {
-         $this->changeActionUser($userOrId, 'created_by_id');
-         return $this;
-     }
-
-    public function changeDeletedBy($userOrId) {
-        $this->changeActionUser($userOrId, 'deleted_by_id');
-        return $this;
-    }
-
-    public function changeActionUser($userOrId, $field) {
-         $user = $userOrId;
-         if (is_object($user)) {
-             $user = $user->id;
-         }
-         $this->$field = $user;
-         $this->save();
-    }
-
+        public function updateRestoredBy($user)
+        {
+            $this->restored_by_id = $user->id;
+            $this->save();
+        }
 }
