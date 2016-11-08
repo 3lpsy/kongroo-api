@@ -7,47 +7,23 @@ use Laravel\Lumen\Http\ResponseFactory;
 class Controller extends BaseController
 {
 
-    protected $data;
-
     protected $statusCode = 200;
 
-    public function __construct() {
-        $this->initResponse();
-    }
+    protected $factory;
 
     public function send($data = null, $headers = [], $code = 200)
     {
-        $this->initDataIfNotSet();
-        return ResponseFactory::json($data ?: $this->data->toArray(), $code, $headers);
+        return $this->needsFactory()->json($data, $code, $headers);
     }
 
-    protected function pass($compact) {
-        $this->initDataIfNotSet();
-        foreach($compact as $key => $value) {
-            $this->passByKey($key, $value);
-        }
-        return $this;
-    }
-
-    protected function passByKey($key, $value) {
-        $this->data->put($key, $value);
-        return $this;
-    }
-
-
-    protected function initDataIfNotSet()
+    public function needsFactory()
     {
-        if (! $this->data instanceof Collection) {
-            $this->data = new Collection;
+        if (! $this->factory) {
+            $this->factory = new ResponseFactory;
+            return $this->factory;
         }
+        return $this->factory;
     }
 
-    public function __get($key)
-    {
-        $this->initDataIfNotSet();
-        if($this->data->has($key)) {
-            return $this->data->get($key);
-        }
-    }
 
 }

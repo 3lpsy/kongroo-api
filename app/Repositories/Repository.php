@@ -26,6 +26,21 @@ abstract class Repository implements RepositoryInterface
     /**
      * @var Model
      */
+    protected $load;
+
+    /**
+     * @var Model
+     */
+    protected $builder;
+
+    /**
+     * @var Model
+     */
+    protected $built = false;
+
+    /**
+     * @var Model
+     */
     protected $presenters;
 
     /**
@@ -52,6 +67,7 @@ abstract class Repository implements RepositoryInterface
         $this->app = $app;
         $this->initResource();
         $this->initPresenters();
+        $this->initBuilder();
         $this->boot();
     }
 
@@ -63,11 +79,30 @@ abstract class Repository implements RepositoryInterface
         return $this;
     }
 
+    public function load($load)
+    {
+        $this->load = $load;
+        return $this;
+    }
+
+    public function build()
+    {
+        $this->results = $this->builder->get();
+        $this->built = true;
+        return $this;
+    }
+
 
     protected function initResource()
     {
         $resource = $this->makeResource();
         $this->setResource($resource);
+    }
+
+    protected function initBuilder()
+    {
+        $this->builder = $this->resource->newQuery();
+        return $this;
     }
 
     /**
@@ -136,11 +171,6 @@ abstract class Repository implements RepositoryInterface
         return $this;
     }
 
-    public function includeWith($includeWith)
-    {
-        return $this->include($includeWith);
-   }
-
 
     public function getPresenter($key) {
         if (! $this->presenters->has($key)) {
@@ -178,6 +208,9 @@ abstract class Repository implements RepositoryInterface
      */
     public function parse()
     {
+        if (! $this->built) {
+            $this->build();
+        }
         $results = $this->results;
         if (!$this->skipPresenter && $this->presenter instanceof PresenterInterface) {
             if ($results instanceof Collection || $results instanceof LengthAwarePaginator) {

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Article;
 
 use Illuminate\Http\Request as IlluminateRequest;
@@ -22,20 +23,21 @@ class ArticleController extends Controller
      */
     public function index(IlluminateRequest $request, $page = 1)
     {
-        $limit = $request->input('limit') ?: 15;
-        $tags = $request->input('tags') ?: [];
-        $allTags = $request->input('allTags') ?: true;
         $data = $this->repo->presenter('api')
-                ->includeWith([
+                ->load([
                     'sections',
                     'sections.content',
                     'sections.type',
-                    'sections.status',
+                    'author',
+                    'tags'
+                ])->include([
+                    'sections',
+                    'sections.content',
+                    'sections.type',
                     'author',
                     'tags'
                 ])
-                ->whereHasIn("tags", $tags, $allTags)
-                ->paginate($limit)
+                ->paginate()
                 ->parse();
         return $this->send($data);
     }

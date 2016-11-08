@@ -20,7 +20,7 @@ class MorphMapServiceProvider extends ServiceProvider
     public function register()
     {
         Relation::morphMap([
-            'content_markdown' => config('models.contentMarkdown.class')
+            'content_markdown' => config('models.content_markdown.namespace')
         ]);
 
     }

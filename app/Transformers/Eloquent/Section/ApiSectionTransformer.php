@@ -30,7 +30,7 @@ class ApiSectionTransformer extends EloquentTransformer
 
     public function includeContent(Section $section)
     {
-        return $this->item($section->content, new ApiContentTransformer, false);
+        return $this->item($section->content, new ApiContentTransformer($section->contentable_type), false);
     }
 
     public function includeType(Section $section)

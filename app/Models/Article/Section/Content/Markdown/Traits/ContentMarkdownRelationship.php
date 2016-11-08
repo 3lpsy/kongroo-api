@@ -6,6 +6,6 @@ trait ContentMarkdownRelationship
 {
 
     public function markdown() {
-        return $this->belongsTo(config("models.markdown.class"), "markdown_id");
+        return $this->belongsTo(config("models.markdown.namespace"), "markdown_id");
     }
 }

@@ -50,6 +50,10 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+$app->configure('models');
+$app->configure('blueprint');
+$app->configure('cors');
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -61,9 +65,9 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+    Nord\Lumen\Cors\CorsMiddleware::class,
+]);
 
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
@@ -79,18 +83,16 @@ $app->singleton(
 | totally optional, so you are not required to uncomment this line.
 |
 */
-$app->configure('models');
-
-$app->configure('blueprint');
 
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\MigrationCreatorServiceProvider::class);
-
 $app->register(App\Providers\MigrationServiceProvider::class);
 $app->register(App\Providers\MorphMapServiceProvider::class);
 $app->register(App\Providers\RepositoryServiceProvider::class);
 $app->register(App\Providers\DatabaseServiceProvider::class);
+$app->register(\Nord\Lumen\Cors\CorsServiceProvider::class);
+
 
 // $app->register(Barryvdh\Cors\ServiceProvider::class);
 

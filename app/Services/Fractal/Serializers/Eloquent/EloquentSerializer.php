@@ -48,17 +48,17 @@ class EloquentSerializer extends DataArraySerializer
         $pagination['links'] = [];
 
         if ($currentPage > 1) {
-            $pagination['links']['previous'] = $paginator->getUrl($currentPage - 1);
+            $pagination['links']['previousPage'] = $paginator->getUrl($currentPage - 1);
         }
         else {
-            $pagination['links']['previous'] = "";
+            $pagination['links']['previousPage'] = "";
         }
 
         if ($currentPage < $lastPage) {
-            $pagination['links']['next'] = $paginator->getUrl($currentPage + 1);
+            $pagination['links']['nextPage'] = $paginator->getUrl($currentPage + 1);
         }
         else {
-            $pagination['links']['next'] = "";
+            $pagination['links']['nextPage'] = "";
         }
 
         return ['pagination' => $pagination];

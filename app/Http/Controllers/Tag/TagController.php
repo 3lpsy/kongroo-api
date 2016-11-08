@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Tag;
 
 use Illuminate\Http\Request as IlluminateRequest;
-use App\Api\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Request;
 use App\Models\Tag\Tag;
 use App\Repositories\Eloquent\Tag\TagRepositoryInterface;
@@ -22,9 +22,8 @@ class TagController extends Controller
      */
     public function index(IlluminateRequest $request, $page = 1)
     {
-        $limit = $request->limit ?: 15;
         $data = $this->repo->presenter('api')
-                ->paginate($limit)
+                ->paginate()
                 ->parse();
         return $this->send($data);
     }

@@ -8,6 +8,6 @@ abstract class Content extends Model
 {
     public function section()
     {
-        return $this->morphMany(config('models.section.class'), 'content', 'contentable_type', 'contentable_id');
+        return $this->morphMany(config('models.section.namespace'), 'content', 'contentable_type', 'contentable_id');
     }
 }
