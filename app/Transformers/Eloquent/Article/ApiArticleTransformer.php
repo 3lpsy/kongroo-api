@@ -20,10 +20,10 @@ class ApiArticleTransformer extends EloquentTransformer
             'subTitle' => $article->sub_title,
             'reads' => $article->reads,
             'slug' => $article->slug,
-            'publishedAt' => [
-                'date' => $article->published_at->format('Y-m-d'),
-                'diffForHumans' => $article->published_at->diffForHumans()
-            ]
+            'publishedAt' => $article->published_at->timestamp,
+            'createdAt' => $article->created_at->timestamp,
+            'updatedAt' => $article->updated_at->timestamp,
+            'queriedAt' => \Carbon\Carbon::now()->timestamp
         ];
     }
 
