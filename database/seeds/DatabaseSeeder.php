@@ -12,13 +12,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        if (env("DB_DRIVER") === 'mysql') {
+            \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        }
 
         $this->call(TruncateTables::class);
         $this->call(InitSeederAccess::class);
         $this->call(InitSuperUserAccess::class);
         $this->call(ArticlesSeeder::class);
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        if (env("DB_DRIVER") === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        }
 
     }
 }

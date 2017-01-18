@@ -43,8 +43,11 @@ class Model extends IlluminateModel
     public function bootConfig()
     {
         if ($config = config("models." . $this->model)){
-            return $this->table = $this->getConnection()->getDatabaseName() . "." .
-                        config("models." . $this->model . ".table");
+            $table = config("models." . $this->model . ".table");
+            if (env('DB_DRIVER') !== "sqlite") {
+                $table = $this->getConnection()->getDatabaseName() . "." . $table;
+            }
+            return $this->table = $table;
         }
         throw new \Exception("No Config Found For Model: " . get_class($this));
 
