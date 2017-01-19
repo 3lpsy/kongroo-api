@@ -1,7 +1,5 @@
 <?php
-
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Allowed request origins
@@ -10,9 +8,7 @@ return [
     | Indicates which origins are allowed to perform requests.
     |
     */
-
     'allow_origins' => ['*'],
-
     /*
     |--------------------------------------------------------------------------
     | Allowed HTTP headers
@@ -21,9 +17,7 @@ return [
     | Indicates which HTTP headers are allowed.
     |
     */
-
     'allow_headers' => ['*'],
-
     /*
     |--------------------------------------------------------------------------
     | Allowed HTTP methods
@@ -32,9 +26,7 @@ return [
     | Indicates which HTTP methods are allowed.
     |
     */
-
     'allow_methods' => ['*'],
-
     /*
     |--------------------------------------------------------------------------
     | Whether or not the response can be exposed when credentials are present
@@ -47,9 +39,7 @@ return [
     | is ignored by the browser and not returned to web content.
     |
     */
-
     'allow_credentials' => false,
-
     /*
     |--------------------------------------------------------------------------
     | Exposed headers
@@ -58,9 +48,7 @@ return [
     | Headers that are allowed to be exposed to the web server.
     |
     */
-
-    'expose_headers' => [],
-
+    'expose_headers' => ['Authorization'],
     /*
     |--------------------------------------------------------------------------
     | Max age
@@ -69,9 +57,7 @@ return [
     | Indicates how long the results of a preflight request can be cached.
     |
     */
-
     'max_age' => 0,
-
     /*
     |--------------------------------------------------------------------------
     | Origin not allowed
@@ -80,9 +66,7 @@ return [
     | Creates the response if the origin is not allowed.
     |
     */
-
     'origin_not_allowed' => null,
-
     /*
     |--------------------------------------------------------------------------
     | Method not allowed
@@ -91,9 +75,7 @@ return [
     | Creates the response if the method is not allowed.
     |
     */
-
     'method_not_allowed' => null,
-
     /*
     |--------------------------------------------------------------------------
     | Header not allowed
@@ -102,7 +84,5 @@ return [
     | Creates the response if the header is not allowed.
     |
     */
-
     'header_not_allowed' => null,
-
 ];

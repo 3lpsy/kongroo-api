@@ -36,5 +36,4 @@ class TagController extends Controller
 
         return $this->send($data);
     }
-
 }

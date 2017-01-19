@@ -1,6 +1,6 @@
 <?php
 
-$app->group(['prefix' => 'v1'], function() use ($app) {
+$app->group(['prefix' => 'v1'], function () use ($app) {
     $app->get('/article', [
         'uses' => '\App\Http\Controllers\Article\ArticleController@index',
         'as' => 'api.article.index'
@@ -11,7 +11,7 @@ $app->group(['prefix' => 'v1'], function() use ($app) {
     ]);
 });
 
-$app->group(['prefix' => 'v1'], function() use ($app) {
+$app->group(['prefix' => 'v1'], function () use ($app) {
     $app->get('/tag', [
         'uses' => '\App\Http\Controllers\Tag\TagController@index',
         'as' => 'api.tag.index'
