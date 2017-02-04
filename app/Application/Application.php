@@ -15,7 +15,8 @@ class Application extends LumenApplication
 
         $this->configure('database');
         $this->register('App\Providers\MigrationServiceProvider');
-        $this->register('Illuminate\Database\SeedServiceProvider');
-        $this->register('Illuminate\Queue\ConsoleServiceProvider');
+
+        // $this->register('Illuminate\Database\MigrationServiceProvider');
+        $this->register('Laravel\Lumen\Console\ConsoleServiceProvider');
     }
 }

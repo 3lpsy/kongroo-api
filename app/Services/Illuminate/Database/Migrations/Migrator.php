@@ -71,19 +71,14 @@ class Migrator extends IlluminateMigrator
 
         $files = $this->getMigrationModuleFilesFilteredByFk($paths);
 
-        // Once we grab all of the migration files for the path, we will compare them
-        // against the migrations that have already been run for this package then
-        // run each of the outstanding migrations against a database connection.
-        $ran = $this->repository->getRan();
+        $this->requireFiles($migrations = $this->pendingMigrations(
+            $files, $this->repository->getRan()
+        ));
 
-        $migrations = Collection::make($files)
-                        ->reject(function ($file) use ($ran) {
-                            return in_array($this->getMigrationName($file), $ran);
-                        })->values()->all();
-
-        $this->requireFiles($migrations);
-
-        $this->runMigrationList($migrations, $options);
+        // Once we have all these migrations that are outstanding we are ready to run
+        // we will go ahead and run them "up". This will execute each migration as
+        // an operation against a database. Then we'll return this list of them.
+        $this->runPending($migrations, $options);
 
         return $migrations;
     }
@@ -113,5 +108,4 @@ class Migrator extends IlluminateMigrator
             return $this->getMigrationName($file);
         })->all();
     }
-
 }

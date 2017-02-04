@@ -1,5 +1,6 @@
 <?php
 use App\Providers\AuthServiceProvider;
+use App\Providers\JwtAuthServiceProvider;
 use App\Providers\MigrationCreatorServiceProvider;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -51,8 +52,11 @@ $app->singleton(
 );
 
 $app->configure('models');
+$app->configure('auth');
+
 $app->configure('blueprint');
 $app->configure('cors');
+$app->configure('jwt');
 
 /*
 |--------------------------------------------------------------------------
@@ -85,6 +89,10 @@ $app->middleware([
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
+// $app->register(Illuminate\Auth\AuthServiceProvider::class);
+// $app->register('Laravel\Lumen\Console\ConsoleServiceProvider');
+
+$app->register(Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\MigrationCreatorServiceProvider::class);
 $app->register(App\Providers\MigrationServiceProvider::class);

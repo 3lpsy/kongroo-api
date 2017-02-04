@@ -11,14 +11,11 @@ use Tymon\JWTAuth\JWTAuth;
 
 class JwtGuard implements Guard
 {
+    protected $auth;
 
-    protected $user;
-
-    protected $login;
-
-    public function __construct(UserProvider $provider)
+    public function __construct(JWTAuth $auth)
     {
-        $this->provider = $provider;
+        $this->auth = $auth;
     }
     /**
      * Determine if the current user is authenticated.
@@ -27,7 +24,6 @@ class JwtGuard implements Guard
      */
     public function check()
     {
-
     }
 
     /**
@@ -37,7 +33,6 @@ class JwtGuard implements Guard
      */
     public function guest()
     {
-
     }
 
     /**
@@ -47,7 +42,6 @@ class JwtGuard implements Guard
      */
     public function user()
     {
-
     }
 
     /**
@@ -57,7 +51,6 @@ class JwtGuard implements Guard
      */
     public function id()
     {
-
     }
 
     /**
@@ -68,7 +61,7 @@ class JwtGuard implements Guard
      */
     public function validate(array $credentials = [])
     {
-
+        return $this->auth->attempt($credentials);
     }
 
     /**
@@ -79,14 +72,10 @@ class JwtGuard implements Guard
      */
     public function setUser(Authenticatable $user)
     {
-
         $this->user = $user;
 
         $this->loggedOut = false;
 
         return $this;
-
     }
-
-
 }

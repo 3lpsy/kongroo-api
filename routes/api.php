@@ -44,3 +44,18 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
         'as' => 'api.video.video-source.show'
     ]);
 });
+
+$app->group(['prefix' => 'v1'], function () use ($app) {
+    $app->get('/test', [
+        'uses' => 'Auth\Login\LoginController@store',
+        'as' => 'api.auth.login.store'
+    ]);
+});
+
+
+$app->group(['prefix' => 'v1'], function () use ($app) {
+    $app->post('/auth/login', [
+        'uses' => 'Auth\Login\LoginController@store',
+        'as' => 'api.auth.login.store'
+    ]);
+});
