@@ -32,17 +32,17 @@ class Model extends IlluminateModel
         'restored_at'
     ];
 
-    public function __construct(array $attributes = []) {
+    public function __construct(array $attributes = [])
+    {
         if (property_exists($this, 'model')) {
             $this->bootConfig();
         }
         parent::__construct($attributes);
-
     }
 
     public function bootConfig()
     {
-        if ($config = config("models." . $this->model)){
+        if ($config = config("models." . $this->model)) {
             $table = config("models." . $this->model . ".table");
             if (env('DB_DRIVER') !== "sqlite") {
                 $table = $this->getConnection()->getDatabaseName() . "." . $table;
@@ -50,7 +50,6 @@ class Model extends IlluminateModel
             return $this->table = $table;
         }
         throw new \Exception("No Config Found For Model: " . get_class($this));
-
     }
 
     public function getMorphType()
@@ -63,4 +62,12 @@ class Model extends IlluminateModel
         return $this->perPage;
     }
 
+    public function fromPivot($attribute)
+    {
+        if (! $this->pivot) {
+            throw new \Exception("No Pivot Table");
+        }
+
+        return $this->pivot->{$attribute};
+    }
 }

@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Access\User\User;
+use App\Models\Tag\Tag;
+use App\Models\Series\Series;
+use App\Models\Article\Section\Type\ArticleSectionType;
+
 class ArticlesSeeder extends Seeder
 {
     /**
@@ -13,34 +17,22 @@ class ArticlesSeeder extends Seeder
     {
         $user = User::find(2);
 
+        $tags = Tag::all();
 
-        $tags = factory(config('models.tag.namespace'), 20)->create();
+        $types = ArticleSectionType::all();
 
-        $series = factory(config('models.series.namespace'), 3)->create()->each(function($series) use ($tags, $user){
-            $series->tag($tags->random());
-        });
+        $articles = factory(config('models.article.namespace'), 'pubished-plain', 60)
+            ->create(['author_id' => $user->id])
+            ->each(function ($article) use ($user, $types, $tags) {
+                $tagged = $tags->random();
 
+                $article->authoredBy($user)
+                    ->publishedBy($user)
+                    ->tag($tagged);
 
-        $markdownType = factory(config('models.section_type.namespace'))->create([
-            'name' => 'markdown',
-            'display_name' => 'Markdown'
-        ]);
-
-
-        $videoType = factory(config('models.section_type.namespace'))->create([
-            'name' => 'video',
-            'display_name' => 'Video'
-        ]);
-
-        $types = collect([$markdownType, $videoType]);
-
-        $articles = factory(config('models.article.namespace'), 'pubished-plain', 60)->create(['author_id' => $user->id])->each(function($article) use ($user, $types, $tags) {
-            $article->authoredBy($user)
-                ->publishedBy($user)
-                ->tag($tags->random());
-
-           $sections = factory(config('models.section.namespace'), 3)
-                ->create(['article_id' => $article->id, 'type_id' => $types->random()->id]);
-        });
+                $article->tag($tags->filter(function ($tag) use ($tagged) {
+                    return $tag->id !== $tagged->id;
+                })->random());
+            });
     }
 }

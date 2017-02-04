@@ -84,6 +84,10 @@ return [
         'table' => 'tags'
     ],
 
+    'taggable' => [
+        'table' => 'taggables'
+    ],
+
     'series' => [
         'namespace' => '\App\Models\Series\Series',
         'table' => 'series'
@@ -110,9 +114,34 @@ return [
         'table' => 'content_markdown'
     ],
 
+    'content_video' => [
+        'namespace' => '\App\Models\Article\Section\Content\Video\ContentVideo',
+        'table' => 'content_video'
+    ],
+
     'markdown' => [
         'namespace' => '\App\Models\Markdown\Markdown',
         'table' => 'markdowns'
+    ],
+
+
+    'image' => [
+        'namespace' => '\App\Models\Image\Image',
+        'table' => 'images'
+    ],
+
+    'video' => [
+        'namespace' => '\App\Models\Video\Video',
+        'table' => 'videos'
+    ],
+
+    'video_source' => [
+        'namespace' => '\App\Models\Video\Source\VideoSource',
+        'table' => 'video_sources'
+    ],
+
+    'video_video_source' => [
+        'table' => 'video_video_source'
     ],
 
     'comment' => [

@@ -13,14 +13,10 @@ class TruncateTables extends Seeder
     {
         $models = config('models');
 
-        collect($models)->each(function($model, $modelOrKey) {
-
-            if (! array_key_exists("truncate", $model) || $model["truncate"] === false){
-
+        collect($models)->each(function ($model, $modelOrKey) {
+            if (! array_key_exists("truncate", $model) || $model["truncate"] === false) {
                 \DB::table($model["table"])->truncate();
-
             }
-
         });
     }
 }

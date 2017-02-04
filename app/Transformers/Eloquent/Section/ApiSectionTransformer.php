@@ -5,11 +5,11 @@ use App\Transformers\Eloquent\EloquentTransformer;
 use App\Models\Article\Section\Section;
 use App\Transformers\Eloquent\Status\ApiStatusTransformer;
 use App\Transformers\Eloquent\SectionType\ApiSectionTypeTransformer;
-use App\Transformers\Eloquent\Content\ApiContentTransformer;
+use App\Transformers\Eloquent\Content\ApiVideoContentTransformer;
+use App\Transformers\Eloquent\Content\ApiMarkdownContentTransformer;
 
 class ApiSectionTransformer extends EloquentTransformer
 {
-
     protected $availableIncludes = ['status', 'type', 'content'];
 
     public function transform(Section $section)
@@ -30,13 +30,26 @@ class ApiSectionTransformer extends EloquentTransformer
 
     public function includeContent(Section $section)
     {
-        return $this->item($section->content, new ApiContentTransformer($section->contentable_type), false);
+        if ($section->content->contentType === 'content_video') {
+            return $this->includeVideoContent($section);
+        } elseif ($section->content->contentType === 'content_markdown') {
+            return $this->includeMarkdownContent($section);
+        }
+        return null;
+    }
+
+    protected function includeVideoContent($section)
+    {
+        return $this->item($section->content, new ApiVideoContentTransformer, false);
+    }
+
+    protected function includeMarkdownContent($section)
+    {
+        return $this->item($section->content, new ApiMarkdownContentTransformer, false);
     }
 
     public function includeType(Section $section)
     {
         return $this->item($section->type, new ApiSectionTypeTransformer, false);
-
     }
-
 }

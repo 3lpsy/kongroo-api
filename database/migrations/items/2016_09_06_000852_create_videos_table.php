@@ -4,7 +4,6 @@
 use App\Services\Illuminate\Database\Schema\Blueprint\Blueprint;
 use App\Services\Illuminate\Database\Migrations\Migration;
 
-
 class CreateVideosTable extends Migration
 {
     /**
@@ -15,15 +14,13 @@ class CreateVideosTable extends Migration
     public function up()
     {
         $this->schema()->create('videos', function (Blueprint $table) {
-            $table->smallInteger('id');
-            $table->string('filename');
-            $table->string('mime');
-            $table->string('original_filename');
-            $table->string('location');
+            $table->smallIncrements('id');
+            $table->title();
+            $table->description();
+            $table->fkInteger("poster_id");
             $table->slug();
             $table->stamps();
             $table->actions();
-
         });
     }
 

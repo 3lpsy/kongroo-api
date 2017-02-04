@@ -13,15 +13,16 @@ class CreateImagesTable extends Migration
     public function up()
     {
         $this->schema()->create('images', function (Blueprint $table) {
-            $table->smallInteger('id');
-            $table->string('filename');
-            $table->string('mime');
-            $table->string('original_filename');
-            $table->string('location');
-            $table->slug();
+            $table->increments('id');
+            $table->string('protocol');
+            $table->string('hostname');
+            $table->string('directory')->nullable();
+            $table->string('mime')->nullable();
+            $table->string('resolution')->nullable();
+            $table->string('filename')->nullable();
+            $table->string('original_filename')->nullable();
             $table->stamps();
             $table->actions();
-
         });
     }
 

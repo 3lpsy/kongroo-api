@@ -5,24 +5,20 @@ use App\Services\Illuminate\Database\Migrations\Migration;
 
 class FkVideosTable extends Migration
 {
-
     public $table = 'videos';
 
     public function up()
     {
-         $this->schema()->table($this->table, function (Blueprint $table) {
-
+        $this->schema()->table($this->table, function (Blueprint $table) {
+            $table->fk('poster_id', 'images');
             $table->fkActions();
-
         });
     }
 
     public function down()
     {
-         $this->schema()->table($this->table, function (Blueprint $table) {
-
-             $table->dropActions();
-
+        $this->schema()->table($this->table, function (Blueprint $table) {
+            $table->dropActions();
         });
     }
 }

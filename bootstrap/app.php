@@ -89,9 +89,10 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\MigrationCreatorServiceProvider::class);
 $app->register(App\Providers\MigrationServiceProvider::class);
 $app->register(App\Providers\MorphMapServiceProvider::class);
-$app->register(App\Providers\RepositoryServiceProvider::class);
+$app->register(App\Providers\FractoServiceProvider::class);
 $app->register(App\Providers\DatabaseServiceProvider::class);
 $app->register(\Nord\Lumen\Cors\CorsServiceProvider::class);
+$app->register(\Laravel\Tinker\TinkerServiceProvider::class);
 
 
 // $app->register(Barryvdh\Cors\ServiceProvider::class);

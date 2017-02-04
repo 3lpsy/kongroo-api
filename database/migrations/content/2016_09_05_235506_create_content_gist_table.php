@@ -19,7 +19,6 @@ class CreateContentGistTable extends Migration
             $table->string("gist_src")->nullable();
             $table->stamps();
             $table->actions();
-
         });
     }
 
@@ -30,6 +29,6 @@ class CreateContentGistTable extends Migration
      */
     public function down()
     {
-        $this->schema()->dropIfExists('content_gists');
+        $this->schema()->dropIfExists('content_gist');
     }
 }

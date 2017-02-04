@@ -4,11 +4,13 @@ namespace App\Models\Article\Section\Traits;
 
 trait SectionRelationship
 {
-    public function articles() {
+    public function articles()
+    {
         return $this->belongsTo(config('models.article.namespace'));
     }
 
-    public function type() {
+    public function type()
+    {
         return $this->belongsTo(config('models.section_type.namespace'), 'type_id');
     }
 

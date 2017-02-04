@@ -13,5 +13,5 @@ class ContentMarkdown extends Content
 
     public $type = "markdown";
 
-
+    public $contentType = "content_markdown";
 }

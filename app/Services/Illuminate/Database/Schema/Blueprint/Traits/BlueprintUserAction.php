@@ -36,7 +36,11 @@ trait BlueprintUserAction
     public function dropActions()
     {
         collect(config("blueprint.track.actions"))->each(function ($action) {
-            $this->dropFk($this->getActionColumn($action));
+            $this->dropAction($action);
         });
+    }
+    public function dropAction($action)
+    {
+        $this->dropFk($this->getActionColumn($action));
     }
 }

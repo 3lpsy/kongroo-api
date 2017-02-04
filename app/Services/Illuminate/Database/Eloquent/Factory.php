@@ -5,7 +5,8 @@ namespace App\Services\Illuminate\Database\Eloquent;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 use App\Services\Illuminate\Database\Eloquent\FactoryBuilder;
 
-class Factory extends EloquentFactory {
+class Factory extends EloquentFactory
+{
 
  /**
   * Create a builder for the given model.
@@ -16,6 +17,6 @@ class Factory extends EloquentFactory {
   */
  public function of($class, $name = 'default')
  {
-     return new FactoryBuilder($class, $name, $this->definitions, $this->faker);
+     return new FactoryBuilder($class, $name, $this->definitions, [], $this->faker);
  }
 }
