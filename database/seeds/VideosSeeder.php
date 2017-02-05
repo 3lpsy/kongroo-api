@@ -15,15 +15,15 @@ class VideosSeeder extends Seeder
         $videos = factory(config('models.video.namespace'), 4)->create();
 
         $videos->each(function ($video) {
-            $source = factory(config('models.video_source.namespace'), 'mp4')->create();
+            $source = factory(config('models.video_source.namespace'), 'mp4')->create()->first();
 
             $video->attachSource($source);
 
-            $source = factory(config('models.video_source.namespace'), 'webm')->create();
+            $source = factory(config('models.video_source.namespace'), 'webm')->create()->first();
 
             $video->attachSource($source);
 
-            $source = factory(config('models.video_source.namespace'), 'avi')->create();
+            $source = factory(config('models.video_source.namespace'), 'avi')->create()->first();
 
             $video->attachSource($source);
         });

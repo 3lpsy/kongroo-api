@@ -22,7 +22,8 @@
         "symfony/var-dumper": "^3.2",
         "davidbadura/faker-markdown-generator": "^1.0",
         "laravel/tinker": "^1.0",
-        "tymon/jwt-auth": "^0.5.10"
+        "tymon/jwt-auth": "^0.5.10",
+        "illuminate/mail": "^5.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

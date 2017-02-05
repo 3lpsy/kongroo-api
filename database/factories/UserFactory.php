@@ -26,7 +26,7 @@ $factory->defineAs(config('models.user.namespace'), 'super', function (Faker\Gen
         'first_name' => env("APP_SUPER_USER_FIRST_NAME", 'super'),
         'middle_name' => $faker->firstName,
         'last_name' => env("APP_SUPER_USER_LAST_NAME", 'user'),
-        'email' => env("APP_SUPER_USER_EMAIL", $faker->email),
+        'email' => env("APP_SUPER_USER_EMAIL", "admin@example.com"),
         'slug' => $faker->slug
     ];
 });

@@ -24,7 +24,7 @@ class ArticlesSeeder extends Seeder
         $articles = factory(config('models.article.namespace'), 'pubished-plain', 60)
             ->create(['author_id' => $user->id])
             ->each(function ($article) use ($user, $types, $tags) {
-                $tagged = $tags->random();
+                $tagged = $tags->random()->first();
 
                 $article->authoredBy($user)
                     ->publishedBy($user)
@@ -32,7 +32,7 @@ class ArticlesSeeder extends Seeder
 
                 $article->tag($tags->filter(function ($tag) use ($tagged) {
                     return $tag->id !== $tagged->id;
-                })->random());
+                })->random()->first());
             });
     }
 }

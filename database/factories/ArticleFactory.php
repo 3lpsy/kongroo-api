@@ -6,7 +6,7 @@ $factory->define(config('models.article.namespace'), function (Faker\Generator $
         'sub_title' => $faker->sentence(3),
         'slug' => str_slug($title),
         'author_id' => function() {
-            return factory(config('models.user.namespace'))->create()->id;
+            return factory(config('models.user.namespace'))->id;
         },
         'published_at' => $faker->dateTime('now'),
     ];
@@ -18,7 +18,7 @@ $factory->defineAs(config('models.article.namespace'), 'published', function (Fa
         'sub_title' => $faker->sentence(3),
         'slug' => str_slug($title),
         'author_id' => function() {
-            return factory(config('models.user.namespace'))->create()->id;
+            return factory(config('models.user.namespace'))->id;
         },
         'published_at' => $faker->dateTimeBetween($startDate = "-10 days", $endDate = "-1 days"),
     ];

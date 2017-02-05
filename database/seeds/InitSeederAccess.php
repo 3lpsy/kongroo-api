@@ -12,12 +12,14 @@ class InitSeederAccess extends Seeder
     public function run()
     {
 
-        $superbot = factory(config('models.user.namespace'), 'super-bot')->create();
+        $superbot = factory(config('models.user.namespace'), 'super-bot')
+            ->create()->first();
 
-        $superbotPermission = factory(config('models.permission.namespace'), 'super-bot')->create();
+        $superbotPermission = factory(config('models.permission.namespace'), 'super-bot')
+            ->create()->first();
 
-        $superbotRole = factory(config('models.role.namespace'), 'super-bot')->create();
-
+        $superbotRole = factory(config('models.role.namespace'), 'super-bot')
+            ->create()->first();
         $superbotRole->permissions()->attach($superbotPermission);
 
         $superbot->roles()->attach($superbotRole);

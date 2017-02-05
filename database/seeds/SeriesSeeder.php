@@ -17,8 +17,10 @@ class SeriesSeeder extends Seeder
 
         $user = User::find(2);
 
-        $series = factory(config('models.series.namespace'), 3)->create()->each(function ($series) use ($tags, $user) {
-            $series->tag($tags->random());
-        });
+        $series = factory(config('models.series.namespace'), 3)
+            ->create()
+            ->each(function ($series) use ($tags, $user) {
+                $series->tag($tags->random());
+            });
     }
 }

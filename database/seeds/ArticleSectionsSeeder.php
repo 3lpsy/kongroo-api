@@ -24,13 +24,12 @@ class ArticleSectionsSeeder extends Seeder
 
         $markdowns = Markdown::all();
 
-
         $articles->each(function ($article) use ($types, $videos) {
-            $video = $videos->random();
+            $video = $videos->random()->first();
 
             $content = factory(config('models.content_video.namespace'))->create([
                 'video_id' => $video->id
-            ]);
+            ])->first();
 
             $section = factory(config('models.section.namespace'), 1)
                 ->create([
@@ -40,17 +39,17 @@ class ArticleSectionsSeeder extends Seeder
                     'type_id' => $types->first(function ($type) {
                         return $type->name === 'video';
                     })->id
-                ]);
+                ])->first();
         });
 
         $articles->each(function ($article) use ($types, $markdowns) {
-            $mark = $markdowns->random();
+            $mark = $markdowns->random()->first();
 
             $content = factory(config('models.content_markdown.namespace'))->create([
                 'markdown_id' => $mark->id
-            ]);
+            ])->first();
 
-            factory(config('models.section.namespace'), 1)
+            $section = factory(config('models.section.namespace'), 1)
                 ->create([
                     'article_id' => $article->id,
                     'contentable_id' => $content->id,
@@ -58,35 +57,17 @@ class ArticleSectionsSeeder extends Seeder
                     'type_id' => $types->first(function ($type) {
                         return $type->name === 'markdown';
                     })->id
-                ]);
+                ])->first();
         });
-        //
-        // $articles->each(function ($article) use ($types, $videos) {
-        //     $video = $videos->random();
-        //
-        //     $content = factory(config('models.content_video.namespace'))->create([
-        //         'video_id' => $video->id
-        //     ]);
-        //
-        //     $section = factory(config('models.section.namespace'), 1)
-        //         ->create([
-        //             'article_id' => $article->id,
-        //             'contentable_id' => $content->id,
-        //             'contentable_type' => $content->contentType,
-        //             'type_id' => $types->first(function ($type) {
-        //                 return $type->name === 'video';
-        //             })->id
-        //         ]);
-        // });
 
         $articles->each(function ($article) use ($types, $markdowns) {
-            $mark = $markdowns->random();
+            $mark = $markdowns->random()->first();
 
             $content = factory(config('models.content_markdown.namespace'))->create([
                 'markdown_id' => $mark->id
-            ]);
+            ])->first();
 
-            factory(config('models.section.namespace'), 1)
+            $section = factory(config('models.section.namespace'), 1)
                 ->create([
                     'article_id' => $article->id,
                     'contentable_id' => $content->id,
@@ -94,7 +75,7 @@ class ArticleSectionsSeeder extends Seeder
                     'type_id' => $types->first(function ($type) {
                         return $type->name === 'markdown';
                     })->id
-                ]);
+                ])->first();
         });
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use App\Models\Access\User\User;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,6 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        User::macro('seed', function($user) {
+            dd('mac');
+        });
     }
 }

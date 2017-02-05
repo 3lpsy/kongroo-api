@@ -4,6 +4,6 @@ $factory->define(config('models.video.namespace'), function (Faker\Generator $fa
     return [
         'title' => 'Big Bunny Video',
         'description' => 'Sample Video Granted For Public Use',
-        'poster_id' => factory(config('models.image.namespace'))->create()->id
+        'poster_id' => factory(config('models.image.namespace'))->create()->first()->id
     ];
 });

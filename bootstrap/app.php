@@ -53,6 +53,8 @@ $app->singleton(
 
 $app->configure('models');
 $app->configure('auth');
+$app->configure('mail');
+$app->configure('services');
 
 $app->configure('blueprint');
 $app->configure('cors');
@@ -77,30 +79,21 @@ $app->middleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
-/*
-|--------------------------------------------------------------------------
-| Register Service Providers
-|--------------------------------------------------------------------------
-|
-| Here we will register all of the application's service providers which
-| are used to bind services into the container. Service providers are
-| totally optional, so you are not required to uncomment this line.
-|
-*/
-
 $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(Illuminate\Auth\AuthServiceProvider::class);
-// $app->register('Laravel\Lumen\Console\ConsoleServiceProvider');
+$app->register(Illuminate\Mail\MailServiceProvider::class);
 
 $app->register(Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
+
 $app->register(App\Providers\MigrationCreatorServiceProvider::class);
 $app->register(App\Providers\MigrationServiceProvider::class);
 $app->register(App\Providers\MorphMapServiceProvider::class);
-$app->register(App\Providers\FractoServiceProvider::class);
 $app->register(App\Providers\DatabaseServiceProvider::class);
+
+$app->register(App\Providers\FractoServiceProvider::class);
 $app->register(\Nord\Lumen\Cors\CorsServiceProvider::class);
 $app->register(\Laravel\Tinker\TinkerServiceProvider::class);
+
 
 
 // $app->register(Barryvdh\Cors\ServiceProvider::class);

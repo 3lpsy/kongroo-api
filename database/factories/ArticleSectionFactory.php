@@ -16,7 +16,7 @@ $factory->defineAs(config('models.section.namespace'), 'markdown', function (Fak
         'sort' => rand(0, 20),
         'slug' => str_slug($header),
         'contentable_id' => function () {
-            return factory(config('models.content_markdown.namespace'))->create()->id;
+            return factory(config('models.content_markdown.namespace'))->create()->first()->id;
         },
         'contentable_type' => 'content_markdown'
     ];
@@ -31,7 +31,7 @@ $factory->defineAs(config('models.section.namespace'), 'video', function (Faker\
         'sort' => rand(0, 20),
         'slug' => str_slug($header),
         'contentable_id' => function () {
-            return factory(config('models.content_video.namespace'))->create()->id;
+            return factory(config('models.content_video.namespace'))->create()->first()->id;
         },
         'contentable_type' => 'content_video'
     ];
