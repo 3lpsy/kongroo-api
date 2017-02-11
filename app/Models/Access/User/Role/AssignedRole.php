@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\AssignedRole;
+namespace App\Models\User\Role;
 
 use App\Models\Model\Model;
 

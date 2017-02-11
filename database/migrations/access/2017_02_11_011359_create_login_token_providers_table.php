@@ -3,20 +3,16 @@
 use App\Services\Illuminate\Database\Schema\Blueprint\Blueprint;
 use App\Services\Illuminate\Database\Migrations\Migration;
 
-class CreateAuthTokensTable extends Migration
+class CreateLoginTokenProvidersTable extends Migration
 {
-    public $table = 'auth_tokens';
+    public $table = 'token_providers';
 
     public function up()
     {
         $this->schema()->create($this->table, function (Blueprint $table) {
-            $table->smallIncrements('id');
+            $table->increments('id');
 
-            $table->fkInteger('user_id');
-
-            $table->fkInteger('auth_token');
-
-            $table->fkInteger('auth_provider');
+            $table->nomen();
 
             $table->stamps();
 

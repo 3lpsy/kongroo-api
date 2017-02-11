@@ -12,12 +12,10 @@ class FkLoginToken extends Migration
      */
     public function up()
     {
-        $this->schema()->table('login_tokens', function (Blueprint $table) {
-
+        $this->schema()->table('tokens', function (Blueprint $table) {
             $table->fk('user_id');
 
             $table->fkActions();
-
         });
     }
 
@@ -28,12 +26,10 @@ class FkLoginToken extends Migration
      */
     public function down()
     {
-        $this->schema()->table('login_tokens', function (Blueprint $table) {
-
+        $this->schema()->table('tokens', function (Blueprint $table) {
             $table->dropFk('user_id');
-            
-            $table->dropActions();
 
+            $table->dropActions();
         });
     }
 }

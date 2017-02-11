@@ -29,10 +29,6 @@ class LoginController extends Controller
         } catch (ModelNotFoundException $e) {
             return $this->onBadRequest();
         }
-        //
-        // if ($user->requiresEmailFactor()) {
-        //     // if ($user->)
-        // }
 
         // $user->canGenerateLoginToken()
 

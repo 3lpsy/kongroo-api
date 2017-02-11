@@ -9,7 +9,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendLoginTokenToUser extends Mailable
+class LoginTokenRequested extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -21,7 +21,6 @@ class SendLoginTokenToUser extends Mailable
     {
         $this->user = $user;
         $this->token = $token;
-
     }
 
     /**
@@ -31,6 +30,12 @@ class SendLoginTokenToUser extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.orders.shipped');
+        return $this->view('emails.auth.login-token.requested')
+            ->to($this->user->email)
+            ->from(env("MAIL_ACCOUNT"))
+            ->with([
+                'token' => $this->token,
+                'user' => $this->user
+            ]);
     }
 }

@@ -4,7 +4,7 @@ return [
 
     'auth_user' => [
         'table' => 'users',
-        'namespace' => "App\Models\Access\AuthUser\AuthUser"
+        'namespace' => "App\Models\Access\User\Auth\AuthUser"
     ],
 
     'user' => [
@@ -29,7 +29,7 @@ return [
 
     "role_permission" => [
         "table" => "permission_role",
-        'namespace' => "App\Models\Access\RolePermission\RolePermission"
+        'namespace' => "App\Models\Access\Role\Permission\RolePermission"
     ],
 
     "role_dependency" => [
@@ -168,5 +168,26 @@ return [
         'namespace' => '\App\Models\Geo\Country\Country',
         'table' => 'countries'
     ],
+
+    'token' => [
+        'namespace' => '\App\Models\Access\Token\Token',
+        'table' => 'tokens'
+    ],
+
+    'token_provider' => [
+        'namespace' => '\App\Models\Access\Token\Provider\TokenProvider',
+        'table' => 'token_providers'
+    ],
+
+    'token_type' => [
+        'namespace' => '\App\Models\Access\Token\Type\TokenType',
+        'table' => 'token_types'
+    ],
+
+    'token_group' => [
+        'namespace' => '\App\Models\Access\Token\Group\TokenGroup',
+        'table' => 'token_groups'
+    ],
+
 
 ];
