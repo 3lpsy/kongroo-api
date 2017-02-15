@@ -47,15 +47,36 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
 
 $app->group(['prefix' => 'v1'], function () use ($app) {
     $app->get('/test', [
-        'uses' => 'Auth\Login\LoginController@store',
-        'as' => 'api.auth.login.store'
+        'uses' => 'Auth\Login\Password\PasswordTokenController@store',
+        'as' => 'test'
     ]);
 });
 
+$app->group(['prefix' => 'v1'], function () use ($app) {
+    $app->post('/auth/login/start', [
+        'uses' => 'Auth\Login\Start\StartLoginController@store',
+        'as' => 'api.auth.login.start-login.store'
+    ]);
+});
 
 $app->group(['prefix' => 'v1'], function () use ($app) {
-    $app->post('/auth/login', [
-        'uses' => 'Auth\Login\LoginController@store',
-        'as' => 'api.auth.login.store'
+    $app->post('/auth/login/password', [
+        'uses' => 'Auth\Login\Password\PasswordTokenController@store',
+        'as' => 'api.auth.login.password.store'
+    ]);
+
+    $app->post('/auth/login/email', [
+        'uses' => 'Auth\Login\Email\EmailTokenController@store',
+        'as' => 'api.auth.login.email.store'
+    ]);
+
+    $app->post('/auth/login/sms', [
+        'uses' => 'Auth\Login\SMS\SMSTokenController@store',
+        'as' => 'api.auth.login.sms.store'
+    ]);
+
+    $app->post('/auth/login/authenticate', [
+        'uses' => 'Auth\Login\Authenticate\AuthenticateTokenController@store',
+        'as' => 'api.auth.login.authenticate.store'
     ]);
 });

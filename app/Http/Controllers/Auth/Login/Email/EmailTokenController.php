@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Login;
+namespace App\Http\Controllers\Auth\Login\Email;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Auth\Login\LoginController;
 use App\Models\Access\User\User;
 use App\Jobs\Auth\SendAuthEmailToUser;
 use Illuminate\Http\Exception\HttpResponseException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class LoginController extends Controller
+class EmailTokenController extends LoginController
 {
 
     /**
@@ -24,27 +22,26 @@ class LoginController extends Controller
     {
         $this->validateLoginRequest($request);
 
+        $oldToken = $this->jwt->getToken();
+
         try {
-            $user = $this->resolveUser($request);
+            $user = $this->resolveUserFromToken();
         } catch (ModelNotFoundException $e) {
             return $this->onBadRequest();
         }
 
-        // $user->canGenerateLoginToken()
+        // authenticate code
 
-        $this->dispatchLoginToUser($user);
+        $token = $this->makeNewVerifiedTokenForUser($user, ['email']);
 
-        return $this->onGoodRequest();
+        return $this->onGoodRequest($token);
     }
 
-    protected function resolveUser($request)
-    {
-        return User::byEmail($request->input('email', false));
-    }
+
 
     protected function dispatchLoginToUser($user)
     {
-        $this->dispatch(new SendAuthEmailToUser($user));
+        // $this->dispatch(new SendAuthEmailToUser($user));
     }
     /**
      * Validate authentication request.
@@ -55,9 +52,9 @@ class LoginController extends Controller
      */
     protected function validateLoginRequest(Request $request)
     {
-        $rules = ['email' => 'required|email|max:255|exists:users,email'];
+        $rules = ['code' => 'required|min:5'];
 
-        $credentials = $request->only(['email']);
+        $credentials = $request->only(['code']);
 
         $validator = $this->getValidationFactory()
             ->make($credentials, $rules, [], []);
@@ -65,48 +62,5 @@ class LoginController extends Controller
         if ($validator->fails()) {
             $this->onBadRequest();
         }
-    }
-
-    /**
-     * What response should be returned on good request.
-     *
-     * @return JsonResponse
-     */
-    protected function onGoodRequest()
-    {
-        // errors => [bagName => [fieldname' => messages]]
-        return new JsonResponse([
-            'meta' => [
-                'messages' => [[
-                    'message' => 'Please check inbox for instructions.',
-                    'title' => "Success!",
-                    'code' => 'auth_email_sent',
-                    'display' => true,
-                    'field' => 'general',
-                    'bag' => 'auth'
-                ]]
-            ]
-        ], 200);
-    }
-    /**
-     * What response should be returned on bad request.
-     *
-     * @return JsonResponse
-     */
-    protected function onBadRequest()
-    {
-        // errors => [bagName => [fieldname' => messages]]
-        return new JsonResponse([
-            'meta' => [
-                'errors' => [[
-                    'message' => 'Invalid Credentials',
-                    'title' => "Error!",
-                    'code' => 'auth_failure',
-                    'display' => true,
-                    'field' => 'general',
-                    'bag' => 'auth'
-                ]]
-            ]
-        ], Response::HTTP_UNAUTHORIZED);
     }
 }

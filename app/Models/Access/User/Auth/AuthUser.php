@@ -11,7 +11,6 @@ use Laravel\Lumen\Auth\Authorizable;
 class AuthUser extends User implements AuthUserInterface
 {
     use Authenticatable,
-        Authorizable,
         Authorizable;
 
     public $model = "auth_user";

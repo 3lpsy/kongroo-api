@@ -60,6 +60,9 @@ $app->configure('blueprint');
 $app->configure('cors');
 $app->configure('jwt');
 
+
+$app->alias('cache', 'Illuminate\Cache\CacheManager');
+$app->alias('auth', 'Illuminate\Auth\AuthManager');
 /*
 |--------------------------------------------------------------------------
 | Register Middleware

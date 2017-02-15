@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Login\Password;
+namespace App\Http\Controllers\Auth\Login\SMS;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\Login\LoginController;
@@ -9,7 +9,7 @@ use App\Jobs\Auth\SendAuthEmailToUser;
 use Illuminate\Http\Exception\HttpResponseException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class PasswordTokenController extends LoginController
+class SMSTokenController extends LoginController
 {
 
     /**
@@ -30,9 +30,9 @@ class PasswordTokenController extends LoginController
             return $this->onBadRequest();
         }
 
-        // authenticate password
+        // authenticate code
 
-        $token = $this->makeNewVerifiedTokenForUser($user, ['credential']);
+        $token = $this->makeNewVerifiedTokenForUser($user, ['sms']);
 
         return $this->onGoodRequest($token);
     }
@@ -52,9 +52,9 @@ class PasswordTokenController extends LoginController
      */
     protected function validateLoginRequest(Request $request)
     {
-        $rules = ['email' => 'required|email|max:255|exists:users,email', 'password' => 'required'];
+        $rules = ['code' => 'required|min:5'];
 
-        $credentials = $request->only(['email']);
+        $credentials = $request->only(['code']);
 
         $validator = $this->getValidationFactory()
             ->make($credentials, $rules, [], []);

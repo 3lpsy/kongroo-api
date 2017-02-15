@@ -11,64 +11,83 @@ use App\Jobs\Auth\SendAuthEmailToUser;
 use Illuminate\Http\Exception\HttpResponseException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class LoginController extends Controller
+abstract class LoginController extends Controller
 {
+    protected $jwt;
 
-    /**
-     * Handle a login request to the application.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function __construct()
     {
-        $this->validateLoginRequest($request);
+        $this->jwt = app('tymon.jwt.auth');
+    }
 
-        try {
-            $user = $this->resolveUser($request);
-        } catch (ModelNotFoundException $e) {
-            return $this->onBadRequest();
+    protected function resolveUserFromToken()
+    {
+        $oldToken = $this->jwt->getToken();
+        return User::byEmail($this->jwt->toUser($oldToken)->email);
+    }
+
+    protected function makeNewAuthenticatedTokenForUser($user)
+    {
+        $claims = $this->makeNewAuthenticatedClaimsForUser($user);
+
+        $newToken = $this->jwt->fromUser($user, $claims);
+
+        $this->jwt->invalidate($this->jwt->getToken());
+
+        return $newToken;
+    }
+
+    protected function makeNewAuthenticatedClaimsForUser($user)
+    {
+        $payload = $this->jwt->parseToken()->getPayload();
+
+        $claims = [];
+
+        $claims['factors'] = $this->getAllUserFactors($user);
+
+        if ($claims['factors'] === $payload['verified']) {
+            $claims["authenticated"] = true;
+            return $claims;
         }
-        //
-        // if ($user->requiresEmailFactor()) {
-        //     // if ($user->)
-        // }
 
-        // $user->canGenerateLoginToken()
-
-        $this->dispatchLoginToUser($user);
-
-        return $this->onGoodRequest();
+        throw new \Exception('Unverified');
     }
 
-    protected function resolveUser($request)
+
+    protected function makeNewVerifiedTokenForUser($user, $verified)
     {
-        return User::byEmail($request->input('email', false));
+        $claims = $this->makeNewVerifiedClaimsForUser($user, $verified);
+
+        $newToken = $this->jwt->fromUser($user, $claims);
+
+        $this->jwt->invalidate($this->jwt->getToken());
+
+        return $newToken;
     }
 
-    protected function dispatchLoginToUser($user)
+    protected function makeNewVerifiedClaimsForUser($user, $verified)
     {
-        $this->dispatch(new SendAuthEmailToUser($user));
+        $payload = $this->jwt->parseToken()->getPayload();
+
+        $claims = [];
+
+        $claims['factors'] = $this->getAllUserFactors($user);
+
+        $claims["authenticated"] = false;
+
+        $claims['verified'] = array_merge($payload['verified'], $verified);
+
+        return $claims;
     }
-    /**
-     * Validate authentication request.
-     *
-     * @param  Request $request
-     * @return void
-     * @throws HttpResponseException
-     */
-    protected function validateLoginRequest(Request $request)
+
+    protected function getAllUserFactors($user)
     {
-        $rules = ['email' => 'required|email|max:255|exists:users,email'];
+        return ['credential', 'email', 'sms'];
+    }
 
-        $credentials = $request->only(['email']);
-
-        $validator = $this->getValidationFactory()
-            ->make($credentials, $rules, [], []);
-
-        if ($validator->fails()) {
-            $this->onBadRequest();
-        }
+    protected function getFirstFactorForUser($user)
+    {
+        return 'credential';
     }
 
     /**
@@ -76,20 +95,11 @@ class LoginController extends Controller
      *
      * @return JsonResponse
      */
-    protected function onGoodRequest()
+    protected function onGoodRequest($token)
     {
         // errors => [bagName => [fieldname' => messages]]
         return new JsonResponse([
-            'meta' => [
-                'messages' => [[
-                    'message' => 'Please check inbox for instructions.',
-                    'title' => "Success!",
-                    'code' => 'auth_email_sent',
-                    'display' => true,
-                    'field' => 'general',
-                    'bag' => 'auth'
-                ]]
-            ]
+            'token' => $token
         ], 200);
     }
     /**
@@ -102,14 +112,17 @@ class LoginController extends Controller
         // errors => [bagName => [fieldname' => messages]]
         return new JsonResponse([
             'meta' => [
-                'errors' => [[
-                    'message' => 'Invalid Credentials',
-                    'title' => "Error!",
-                    'code' => 'auth_failure',
-                    'display' => true,
-                    'field' => 'general',
-                    'bag' => 'auth'
-                ]]
+                'errors' => [
+                    'auth' =>
+                        [
+                            'message' => 'Invalid Credentials',
+                            'title' => "Error!",
+                            'code' => 'auth_failure',
+                            'display' => true,
+                            'field' => 'general',
+                            'bag' => 'auth'
+                        ]
+                    ]
             ]
         ], Response::HTTP_UNAUTHORIZED);
     }
