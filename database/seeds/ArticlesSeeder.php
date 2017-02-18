@@ -33,6 +33,8 @@ class ArticlesSeeder extends Seeder
                 $article->tag($tags->filter(function ($tag) use ($tagged) {
                     return $tag->id !== $tagged->id;
                 })->random()->first());
+
+                $article->addStatus('published');
             });
     }
 }

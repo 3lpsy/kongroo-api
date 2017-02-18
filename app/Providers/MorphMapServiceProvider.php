@@ -19,10 +19,18 @@ class MorphMapServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Relation::morphMap([
-            'content_markdown' => config('models.content_markdown.namespace'),
-            'content_video' => config('models.content_video.namespace'),
-        ]);
+        $map = [];
+
+        $models = config('models');
+
+        foreach ($models as $name => $config) {
+            if (isset($config['morph'])) {
+                $map[$config['morph']] = $config['namespace'];
+            }
+        }
+
+
+        Relation::morphMap($map);
     }
     /**
      * Bootstrap the application events.

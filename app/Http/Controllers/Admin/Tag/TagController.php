@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Tag;
+namespace App\Http\Controllers\Admin\Tag;
 
 use Illuminate\Http\Request as IlluminateRequest;
 use App\Http\Controllers\Controller;
@@ -40,7 +40,7 @@ class TagController extends Controller
 
         $data = $fracto->transformer(Transformer::class)
             ->data($tag)
-            ->includes([])->toArray();
+            ->includes()->toArray();
 
         return $this->send($data);
     }

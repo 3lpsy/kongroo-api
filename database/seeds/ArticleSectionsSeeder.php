@@ -35,7 +35,7 @@ class ArticleSectionsSeeder extends Seeder
                 ->create([
                     'article_id' => $article->id,
                     'contentable_id' => $content->id,
-                    'contentable_type' => $content->contentType,
+                    'contentable_type' => $content->getMorphType(),
                     'type_id' => $types->first(function ($type) {
                         return $type->name === 'video';
                     })->id
@@ -53,7 +53,7 @@ class ArticleSectionsSeeder extends Seeder
                 ->create([
                     'article_id' => $article->id,
                     'contentable_id' => $content->id,
-                    'contentable_type' => $content->contentType,
+                    'contentable_type' => $content->getMorphType(),
                     'type_id' => $types->first(function ($type) {
                         return $type->name === 'markdown';
                     })->id
@@ -71,7 +71,7 @@ class ArticleSectionsSeeder extends Seeder
                 ->create([
                     'article_id' => $article->id,
                     'contentable_id' => $content->id,
-                    'contentable_type' => $content->contentType,
+                    'contentable_type' => $content->getMorphType(),
                     'type_id' => $types->first(function ($type) {
                         return $type->name === 'markdown';
                     })->id

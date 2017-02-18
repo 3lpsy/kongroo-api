@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Category\Traits\Relationship;
+namespace App\Models\Category\Traits;
 
 trait CategoryRelationship
 {
@@ -13,5 +13,4 @@ trait CategoryRelationship
     {
         return $this->hasMany(config('models.series.namespace'), 'series_category', 'category_id', 'series_id');
     }
-
 }

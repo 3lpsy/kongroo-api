@@ -42,8 +42,9 @@ class Model extends IlluminateModel
 
     public function bootConfig()
     {
-        if ($config = config("models." . $this->model)) {
-            $table = config("models." . $this->model . ".table");
+        $config = $this->config();
+        if ($config) {
+            $table = $this->config('table');
             if (env('DB_DRIVER') !== "sqlite") {
                 $table = $this->getConnection()->getDatabaseName() . "." . $table;
             }
@@ -54,7 +55,12 @@ class Model extends IlluminateModel
 
     public function getMorphType()
     {
-        return $this->model;
+        return $this->config('morph', $this->model);
+    }
+
+    public function config($key = null, $default = '')
+    {
+        return config('models.' . $this->model . ($key ? '.' . $key : ''), $default);
     }
 
     public function getPerPage()

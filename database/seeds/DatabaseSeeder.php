@@ -18,7 +18,11 @@ class DatabaseSeeder extends Seeder
         $this->call(TruncateTables::class);
         $this->call(InitSeederAccess::class);
         $this->call(InitSuperUserAccess::class);
+        $this->call(StatusesSeeder::class);
+
         $this->call(TagsSeeder::class);
+        $this->call(CategoriesSeeder::class);
+
         $this->call(SeriesSeeder::class);
         $this->call(SectionTypesSeeder::class);
         $this->call(VideosSeeder::class);

@@ -16,7 +16,7 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
         'uses' => 'Tag\TagController@index',
         'as' => 'api.tag.index'
     ]);
-    $app->get('/tag/{tag}', [
+    $app->get('/tag/{tagId}', [
         'uses' => 'Article\TagController@show',
         'as' => 'api.tag.show'
     ]);
@@ -78,5 +78,46 @@ $app->group(['prefix' => 'v1'], function () use ($app) {
     $app->post('/auth/login/authenticate', [
         'uses' => 'Auth\Login\Authenticate\AuthenticateTokenController@store',
         'as' => 'api.auth.login.authenticate.store'
+    ]);
+});
+
+$app->group(['prefix' => 'v1/admin'], function () use ($app) {
+    $app->get('/dt/article', [
+        'uses' => 'Admin\DT\Article\ArticleController@index',
+        'as' => 'api.dt.admin.article.index'
+    ]);
+    $app->get('/article', [
+        'uses' => 'Admin\Article\ArticleController@index',
+        'as' => 'api.admin.article.index'
+    ]);
+    $app->get('/article/{articleId}', [
+        'uses' => 'Admin\Article\ArticleController@show',
+        'as' => 'api.admin.article.show'
+    ]);
+    $app->get('/tag', [
+        'uses' => 'Admin\Tag\TagController@index',
+        'as' => 'api.admin.tag.index'
+    ]);
+    $app->get('/tag/{tagId}', [
+        'uses' => 'Admin\Tag\TagController@show',
+        'as' => 'api.admin.tag.show'
+    ]);
+
+    $app->get('/category', [
+        'uses' => 'Admin\Category\CategoryController@index',
+        'as' => 'api.admin.category.index'
+    ]);
+    $app->get('/category/{categoryId}', [
+        'uses' => 'Admin\Category\CategoryController@show',
+        'as' => 'api.admin.category.show'
+    ]);
+
+    $app->get('/series', [
+        'uses' => 'Admin\Series\SeriesController@index',
+        'as' => 'api.admin.series.index'
+    ]);
+    $app->get('/seriesId/{seriesId}', [
+        'uses' => 'Admin\Series\SeriesController@show',
+        'as' => 'api.admin.series.show'
     ]);
 });

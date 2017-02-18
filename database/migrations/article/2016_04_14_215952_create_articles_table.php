@@ -14,7 +14,6 @@ class CreateArticlesTable extends Migration
     {
         $this->schema()->create('articles', function (Blueprint $table) {
             $table->smallIncrements('id');
-            $table->nomen();
             $table->title();
             $table->subTitle();
             $table->integer('views')->default(0);
