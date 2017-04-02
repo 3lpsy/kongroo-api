@@ -6,7 +6,7 @@ use Illuminate\Http\Request as IlluminateRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Request;
 use App\Models\Category\Category;
-use App\Transformers\Eloquent\Category\ApiCategoryTransformer as Transformer;
+use App\Transformers\Eloquent\Admin\Category\ApiCategoryTransformer as Transformer;
 
 use Elpsy\Fracto\Fracto;
 

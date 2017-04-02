@@ -6,7 +6,7 @@ use Illuminate\Http\Request as IlluminateRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Request;
 use App\Models\Series\Series;
-use App\Transformers\Eloquent\Series\ApiSeriesTransformer as Transformer;
+use App\Transformers\Eloquent\Admin\Series\ApiSeriesTransformer as Transformer;
 use Elpsy\Fracto\Fracto;
 
 class SeriesController extends Controller

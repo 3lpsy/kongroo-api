@@ -6,7 +6,7 @@ use Illuminate\Http\Request as IlluminateRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Request;
 use App\Models\Tag\Tag;
-use App\Transformers\Eloquent\Tag\ApiTagTransformer as Transformer;
+use App\Transformers\Eloquent\Admin\Tag\ApiTagTransformer as Transformer;
 
 use Elpsy\Fracto\Fracto;
 

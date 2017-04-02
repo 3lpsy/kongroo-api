@@ -22,7 +22,6 @@ class CreateArticlesTable extends Migration
             $table->stamps();
             $table->stamp("published_at");
             $table->action("published");
-
             $table->actions();
         });
     }

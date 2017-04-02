@@ -21,7 +21,7 @@ class ArticlesSeeder extends Seeder
 
         $types = ArticleSectionType::all();
 
-        $articles = factory(config('models.article.namespace'), 'pubished-plain', 60)
+        $articles = factory(config('models.article.namespace'), 'pubished-plain', 120)
             ->create(['author_id' => $user->id])
             ->each(function ($article) use ($user, $types, $tags) {
                 $tagged = $tags->random()->first();

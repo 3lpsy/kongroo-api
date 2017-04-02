@@ -1,11 +1,11 @@
 <?php
-namespace App\Transformers\Eloquent\Article;
+namespace App\Transformers\Eloquent\Admin\Article;
 
-use App\Transformers\Eloquent\EloquentTransformer;
-use App\Transformers\Eloquent\Section\ApiSectionTransformer;
-use App\Transformers\Eloquent\User\ApiAuthorTransformer;
-use App\Transformers\Eloquent\Tag\ApiTagTransformer;
-use App\Transformers\Eloquent\Status\ApiStatusTransformer;
+use App\Transformers\Eloquent\Admin\EloquentTransformer;
+use App\Transformers\Eloquent\Admin\Section\ApiSectionTransformer;
+use App\Transformers\Eloquent\Admin\User\ApiAuthorTransformer;
+use App\Transformers\Eloquent\Admin\Tag\ApiTagTransformer;
+use App\Transformers\Eloquent\Admin\Status\ApiStatusTransformer;
 
 use App\Models\Article\Article;
 

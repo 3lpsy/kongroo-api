@@ -6,7 +6,7 @@ use Illuminate\Http\Request as IlluminateRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Request;
 use App\Models\Article\Article;
-use App\Transformers\Eloquent\Article\ApiArticleTransformer as Transformer;
+use App\Transformers\Eloquent\Admin\Article\ApiArticleTransformer as Transformer;
 
 use Elpsy\Fracto\Fracto;
 
@@ -33,7 +33,8 @@ class ArticleController extends Controller
         \Log::info($limit);
 
         $articles = Article::with(['statuses'])
-            ->orderBy($orderBy, $orderDir)->paginate($limit)
+            ->orderBy($orderBy, $orderDir)
+            ->paginate($limit)
             ->appends('orderBy', $orderBy)
             ->appends('limit', $limit)
             ->appends('orderDir', $orderDir);
